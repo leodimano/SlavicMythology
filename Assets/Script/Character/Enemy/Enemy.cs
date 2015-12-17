@@ -36,6 +36,7 @@ public class Enemy : Character {
 	public float RangeAttackCoolDown;
 	public float AttackRangeRadius;
 	public float AttackMeleeRadius;
+	public LayerMask RaycastPlayerLayerMask;
 	public bool IsPlayerVisible;
 	public bool IsPlayerAggroRange;
 	public bool IsPlayerAttackRangeRadius;
@@ -139,7 +140,7 @@ public class Enemy : Character {
 		{
 			IsPlayerAggroRange = true;
 
-			if (Physics.Raycast(GetForwardPosition, (_playerQuery[0].transform.position - GetForwardPosition) + Vector3.up, out _raycastHit, 500f))
+			if (Physics.Raycast(GetForwardPosition, (_playerQuery[0].transform.position - GetForwardPosition) + Vector3.up, out _raycastHit, 500f, RaycastPlayerLayerMask))
 			{
 				if (_raycastHit.collider.gameObject.CompareTag(CONSTANTS.TAGS.PLAYER)){
 					Debug.DrawLine(GetForwardPosition, _raycastHit.point, Color.green);
@@ -210,6 +211,10 @@ public class Enemy : Character {
 					{
 						_newProjectile.transform.LookAt(new Vector3(_playerQuery[0].transform.position.x, _newProjectile.transform.position.y, _playerQuery[0].transform.position.z));
 					}
+
+					_newProjectile.Damager = this;
+					_newProjectile.DamageType = DamageType.Melee;
+
 					_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
 				}
 			}

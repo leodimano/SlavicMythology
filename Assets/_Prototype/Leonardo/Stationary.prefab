@@ -206,6 +206,9 @@ MonoBehaviour:
   RangeAttackCoolDown: 0.1
   AttackRangeRadius: 10
   AttackMeleeRadius: 2
+  RaycastPlayerLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294965755
   IsPlayerVisible: 0
   IsPlayerAggroRange: 0
   IsPlayerAttackRangeRadius: 0
@@ -254,6 +257,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 75c31b29f6cd31748b76ab6487c77f8f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: RaycastPlayerLayerMask.m_Bits
+      value: 4294965755
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158710}

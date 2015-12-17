@@ -20,6 +20,7 @@ public enum CharacterAttributeTypeEnum
 /// <summary>
 /// Classe que define um atributo do personagem
 /// </summary>
+[Serializable]
 public class CharacterAttribute
 {
 	/// <summary>

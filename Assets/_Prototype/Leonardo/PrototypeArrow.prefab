@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2380278}
   - 114: {fileID: 11478416}
   - 114: {fileID: 11472500}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: pb-Cube-5211146
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ GameObject:
   - 65: {fileID: 6523076}
   - 54: {fileID: 5442830}
   - 114: {fileID: 11430348}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: PrototypeArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - 23: {fileID: 2302106}
   - 114: {fileID: 11419568}
   - 114: {fileID: 11451186}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: pb-Cone-5225846
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,9 +210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92de52b952d18049b40fbd9e2fe7c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 15
-  MeleeDamage: 20
-  MagicDamage: 5
+  Speed: 30
+  DamageType: 0
+  LiveAfterHit: 1
+  Damager: {fileID: 0}
 --- !u!114 &11451186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1906,7 +1907,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MeleeDamage
@@ -1918,7 +1919,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
@@ -1927,6 +1928,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: LiveAfterHit
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
