@@ -1,0 +1,131 @@
+fileFormatVersion: 2
+guid: 9bf86a7fe029999449f867ec1b056fa5
+timeCreated: 1446819292
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Boot_L_MSH
+    100002: Boot_R_MSH
+    100004: Chest_Armor_MSH
+    100006: Helmet
+    100008: Leg_Plate_R_MSH
+    100010: Leg_Plate_R_MSH1
+    100012: //RootNode
+    100014: Shoulder_PLate_L_MSH
+    100016: Shoulder_PLate_R_MSH
+    100018: Waist_Plate_MSH
+    100020: Waist_Protector_MSH
+    100022: Wrist_Plate_L_MSH
+    100024: Wrist_Plate_R_MSH
+    400000: Boot_L_MSH
+    400002: Boot_R_MSH
+    400004: Chest_Armor_MSH
+    400006: Helmet
+    400008: Leg_Plate_R_MSH
+    400010: Leg_Plate_R_MSH1
+    400012: //RootNode
+    400014: Shoulder_PLate_L_MSH
+    400016: Shoulder_PLate_R_MSH
+    400018: Waist_Plate_MSH
+    400020: Waist_Protector_MSH
+    400022: Wrist_Plate_L_MSH
+    400024: Wrist_Plate_R_MSH
+    2300000: Boot_L_MSH
+    2300002: Boot_R_MSH
+    2300004: Chest_Armor_MSH
+    2300006: Helmet
+    2300008: Leg_Plate_R_MSH
+    2300010: Leg_Plate_R_MSH1
+    2300012: Shoulder_PLate_L_MSH
+    2300014: Shoulder_PLate_R_MSH
+    2300016: Waist_Plate_MSH
+    2300018: Waist_Protector_MSH
+    2300020: Wrist_Plate_L_MSH
+    2300022: Wrist_Plate_R_MSH
+    3300000: Boot_L_MSH
+    3300002: Boot_R_MSH
+    3300004: Chest_Armor_MSH
+    3300006: Helmet
+    3300008: Leg_Plate_R_MSH
+    3300010: Leg_Plate_R_MSH1
+    3300012: Shoulder_PLate_L_MSH
+    3300014: Shoulder_PLate_R_MSH
+    3300016: Waist_Plate_MSH
+    3300018: Waist_Protector_MSH
+    3300020: Wrist_Plate_L_MSH
+    3300022: Wrist_Plate_R_MSH
+    4300000: Shoulder_PLate_R_MSH
+    4300002: Wrist_Plate_R_MSH
+    4300004: Chest_Armor_MSH
+    4300006: Helmet
+    4300008: Wrist_Plate_L_MSH
+    4300010: Leg_Plate_R_MSH
+    4300012: Leg_Plate_R_MSH1
+    4300014: Waist_Protector_MSH
+    4300016: Waist_Plate_MSH
+    4300018: Shoulder_PLate_L_MSH
+    4300020: Boot_R_MSH
+    4300022: Boot_L_MSH
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

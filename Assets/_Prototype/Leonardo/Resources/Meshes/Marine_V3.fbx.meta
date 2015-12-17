@@ -1,0 +1,636 @@
+fileFormatVersion: 2
+guid: fca88e12179a7db49a3df2f8444af1c4
+timeCreated: 1446865759
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Character1_Reference
+    100002: group
+    100004: group1
+    100006: group2
+    100008: group3
+    100010: group4
+    100012: Head
+    100014: Heavy_Chest_MSH
+    100016: Heavy_Helmet_MSH
+    100018: Heavy_Left_Boot_MSH
+    100020: Heavy_Left_Leg_MSH
+    100022: Heavy_Left_Shoulder_MSH
+    100024: Heavy_Left_Wrist_MSH
+    100026: Heavy_Right_Boot_MSH
+    100028: Heavy_Right_Leg_MSH
+    100030: Heavy_Right_Shoulder_MSH
+    100032: Heavy_Right_Shoulder_MSH 1
+    100034: Heavy_Right_Wrist_MSH
+    100036: Hips
+    100038: LeftArm
+    100040: LeftFoot
+    100042: LeftForeArm
+    100044: LeftHand
+    100046: LeftLeg
+    100048: LeftShoulder
+    100050: LeftToeBase
+    100052: LeftUpLeg
+    100054: Marine_MSH
+    100056: //RootNode
+    100058: Neck
+    100060: pasted__Character1_Reference
+    100062: pasted__Character1_Reference 1
+    100064: pCube1
+    100066: pCube2
+    100068: pCube3
+    100070: pCube5
+    100072: pCube7
+    100074: pCube8
+    100076: pCylinder1
+    100078: polySurface1
+    100080: polySurface15
+    100082: polySurface19
+    100084: polySurface22
+    100086: polySurface25
+    100088: polySurface26
+    100090: polySurface27
+    100092: polySurface28
+    100094: polySurface29
+    100096: polySurface3
+    100098: polySurface30
+    100100: polySurface31
+    100102: polySurface5
+    100104: polySurface7
+    100106: polySurface8
+    100108: pPipe3
+    100110: RightArm
+    100112: RightFoot
+    100114: RightForeArm
+    100116: RightHand
+    100118: RightLeg
+    100120: RightShoulder
+    100122: RightToeBase
+    100124: RightUpLeg
+    100126: Spine
+    100128: Spine1
+    100130: Spine2
+    100132: transform10
+    100134: transform11
+    100136: transform12
+    100138: transform13
+    100140: transform14
+    100142: transform15
+    100144: transform16
+    100146: transform17
+    100148: transform18
+    100150: transform19
+    100152: transform20
+    100154: transform21
+    100156: transform22
+    100158: transform23
+    100160: transform5
+    100162: transform6
+    100164: transform7
+    100166: transform8
+    100168: transform9
+    400000: Character1_Reference
+    400002: group
+    400004: group1
+    400006: group2
+    400008: group3
+    400010: group4
+    400012: Head
+    400014: Heavy_Chest_MSH
+    400016: Heavy_Helmet_MSH
+    400018: Heavy_Left_Boot_MSH
+    400020: Heavy_Left_Leg_MSH
+    400022: Heavy_Left_Shoulder_MSH
+    400024: Heavy_Left_Wrist_MSH
+    400026: Heavy_Right_Boot_MSH
+    400028: Heavy_Right_Leg_MSH
+    400030: Heavy_Right_Shoulder_MSH
+    400032: Heavy_Right_Shoulder_MSH 1
+    400034: Heavy_Right_Wrist_MSH
+    400036: Hips
+    400038: LeftArm
+    400040: LeftFoot
+    400042: LeftForeArm
+    400044: LeftHand
+    400046: LeftLeg
+    400048: LeftShoulder
+    400050: LeftToeBase
+    400052: LeftUpLeg
+    400054: Marine_MSH
+    400056: //RootNode
+    400058: Neck
+    400060: pasted__Character1_Reference
+    400062: pasted__Character1_Reference 1
+    400064: pCube1
+    400066: pCube2
+    400068: pCube3
+    400070: pCube5
+    400072: pCube7
+    400074: pCube8
+    400076: pCylinder1
+    400078: polySurface1
+    400080: polySurface15
+    400082: polySurface19
+    400084: polySurface22
+    400086: polySurface25
+    400088: polySurface26
+    400090: polySurface27
+    400092: polySurface28
+    400094: polySurface29
+    400096: polySurface3
+    400098: polySurface30
+    400100: polySurface31
+    400102: polySurface5
+    400104: polySurface7
+    400106: polySurface8
+    400108: pPipe3
+    400110: RightArm
+    400112: RightFoot
+    400114: RightForeArm
+    400116: RightHand
+    400118: RightLeg
+    400120: RightShoulder
+    400122: RightToeBase
+    400124: RightUpLeg
+    400126: Spine
+    400128: Spine1
+    400130: Spine2
+    400132: transform10
+    400134: transform11
+    400136: transform12
+    400138: transform13
+    400140: transform14
+    400142: transform15
+    400144: transform16
+    400146: transform17
+    400148: transform18
+    400150: transform19
+    400152: transform20
+    400154: transform21
+    400156: transform22
+    400158: transform23
+    400160: transform5
+    400162: transform6
+    400164: transform7
+    400166: transform8
+    400168: transform9
+    4300000: Marine_MSH
+    7400000: Idle
+    7400002: Running
+    9500000: //RootNode
+    13700000: Marine_MSH
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Character1_Reference
+        weight: 1
+      - path: Character1_Reference/Hips
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg/LeftLeg
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg/LeftLeg/LeftFoot
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg/RightLeg
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg/RightLeg/RightFoot
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+        weight: 1
+      - path: Character1_Reference/Hips/Spine
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/Neck
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm/RightForeArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm/RightForeArm/RightHand
+        weight: 1
+      - path: group
+        weight: 1
+      - path: group/pasted__Character1_Reference
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/Heavy_Chest_MSH
+        weight: 1
+      - path: group1/Heavy_Chest_MSH/transform13
+        weight: 1
+      - path: group1/Heavy_Helmet_MSH
+        weight: 1
+      - path: group1/Heavy_Helmet_MSH/transform12
+        weight: 1
+      - path: group1/Heavy_Left_Boot_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Boot_MSH/transform6
+        weight: 1
+      - path: group1/Heavy_Left_Leg_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Leg_MSH/transform9
+        weight: 1
+      - path: group1/Heavy_Left_Shoulder_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Shoulder_MSH/transform11
+        weight: 1
+      - path: group1/Heavy_Left_Wrist_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Wrist_MSH/transform10
+        weight: 1
+      - path: group1/Heavy_Right_Boot_MSH
+        weight: 1
+      - path: group1/Heavy_Right_Boot_MSH/transform7
+        weight: 1
+      - path: group1/Heavy_Right_Leg_MSH
+        weight: 1
+      - path: group1/Heavy_Right_Leg_MSH/transform8
+        weight: 1
+      - path: group1/Heavy_Right_Shoulder_MSH 1
+        weight: 1
+      - path: group1/Heavy_Right_Shoulder_MSH 1/transform15
+        weight: 1
+      - path: group1/Heavy_Right_Wrist_MSH
+        weight: 1
+      - path: group1/Heavy_Right_Wrist_MSH/transform14
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: group2/polySurface26
+        weight: 1
+      - path: group2/polySurface26/transform19
+        weight: 1
+      - path: group2/polySurface28
+        weight: 1
+      - path: group2/polySurface28/transform18
+        weight: 1
+      - path: group2/polySurface31
+        weight: 1
+      - path: group2/polySurface31/transform17
+        weight: 1
+      - path: group3
+        weight: 1
+      - path: group3/polySurface25
+        weight: 1
+      - path: group3/polySurface25/transform22
+        weight: 1
+      - path: group3/polySurface27
+        weight: 1
+      - path: group3/polySurface27/transform21
+        weight: 1
+      - path: group3/polySurface30
+        weight: 1
+      - path: group3/polySurface30/transform20
+        weight: 1
+      - path: group4
+        weight: 1
+      - path: group4/pasted__Character1_Reference 1
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/polySurface8
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/polySurface8/polySurface19
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/polySurface15
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/transform16
+        weight: 1
+      - path: Marine_MSH
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: pCube1/polySurface3
+        weight: 1
+      - path: pCube1/polySurface3/polySurface7
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: pCube2/polySurface1
+        weight: 1
+      - path: pCube3
+        weight: 1
+      - path: pCube3/polySurface5
+        weight: 1
+      - path: pCube5
+        weight: 1
+      - path: pCube7
+        weight: 1
+      - path: pCube8
+        weight: 1
+      - path: pCylinder1
+        weight: 1
+      - path: pCylinder1/transform5
+        weight: 1
+      - path: polySurface22
+        weight: 1
+      - path: polySurface22/transform23
+        weight: 1
+      - path: pPipe3
+        weight: 1
+      - path: pPipe3/polySurface29
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Running
+      takeName: Take 001
+      firstFrame: 4
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Character1_Reference
+        weight: 1
+      - path: Character1_Reference/Hips
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg/LeftLeg
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg/LeftLeg/LeftFoot
+        weight: 1
+      - path: Character1_Reference/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg/RightLeg
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg/RightLeg/RightFoot
+        weight: 1
+      - path: Character1_Reference/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+        weight: 1
+      - path: Character1_Reference/Hips/Spine
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm/LeftHand
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/Neck
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm/RightForeArm
+        weight: 1
+      - path: Character1_Reference/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm/RightForeArm/RightHand
+        weight: 1
+      - path: group
+        weight: 1
+      - path: group/pasted__Character1_Reference
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/Heavy_Chest_MSH
+        weight: 1
+      - path: group1/Heavy_Chest_MSH/transform13
+        weight: 1
+      - path: group1/Heavy_Helmet_MSH
+        weight: 1
+      - path: group1/Heavy_Helmet_MSH/transform12
+        weight: 1
+      - path: group1/Heavy_Left_Boot_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Boot_MSH/transform6
+        weight: 1
+      - path: group1/Heavy_Left_Leg_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Leg_MSH/transform9
+        weight: 1
+      - path: group1/Heavy_Left_Shoulder_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Shoulder_MSH/transform11
+        weight: 1
+      - path: group1/Heavy_Left_Wrist_MSH
+        weight: 1
+      - path: group1/Heavy_Left_Wrist_MSH/transform10
+        weight: 1
+      - path: group1/Heavy_Right_Boot_MSH
+        weight: 1
+      - path: group1/Heavy_Right_Boot_MSH/transform7
+        weight: 1
+      - path: group1/Heavy_Right_Leg_MSH
+        weight: 1
+      - path: group1/Heavy_Right_Leg_MSH/transform8
+        weight: 1
+      - path: group1/Heavy_Right_Shoulder_MSH 1
+        weight: 1
+      - path: group1/Heavy_Right_Shoulder_MSH 1/transform15
+        weight: 1
+      - path: group1/Heavy_Right_Wrist_MSH
+        weight: 1
+      - path: group1/Heavy_Right_Wrist_MSH/transform14
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: group2/polySurface26
+        weight: 1
+      - path: group2/polySurface26/transform19
+        weight: 1
+      - path: group2/polySurface28
+        weight: 1
+      - path: group2/polySurface28/transform18
+        weight: 1
+      - path: group2/polySurface31
+        weight: 1
+      - path: group2/polySurface31/transform17
+        weight: 1
+      - path: group3
+        weight: 1
+      - path: group3/polySurface25
+        weight: 1
+      - path: group3/polySurface25/transform22
+        weight: 1
+      - path: group3/polySurface27
+        weight: 1
+      - path: group3/polySurface27/transform21
+        weight: 1
+      - path: group3/polySurface30
+        weight: 1
+      - path: group3/polySurface30/transform20
+        weight: 1
+      - path: group4
+        weight: 1
+      - path: group4/pasted__Character1_Reference 1
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/polySurface8
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/polySurface8/polySurface19
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/polySurface15
+        weight: 1
+      - path: Heavy_Right_Shoulder_MSH/transform16
+        weight: 1
+      - path: Marine_MSH
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: pCube1/polySurface3
+        weight: 1
+      - path: pCube1/polySurface3/polySurface7
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: pCube2/polySurface1
+        weight: 1
+      - path: pCube3
+        weight: 1
+      - path: pCube3/polySurface5
+        weight: 1
+      - path: pCube5
+        weight: 1
+      - path: pCube7
+        weight: 1
+      - path: pCube8
+        weight: 1
+      - path: pCylinder1
+        weight: 1
+      - path: pCylinder1/transform5
+        weight: 1
+      - path: polySurface22
+        weight: 1
+      - path: polySurface22/transform23
+        weight: 1
+      - path: pPipe3
+        weight: 1
+      - path: pPipe3/polySurface29
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
