@@ -12,7 +12,8 @@ public enum EnemyTypeEnum
 public enum EnemyAttackTypeEnum
 {
 	Melee,
-	Ranged
+	Ranged,
+	Stationary
 }
 
 public enum EnemyStateEnum
@@ -79,8 +80,11 @@ public class Enemy : Character {
 		switch(EnemyState)
 		{
 			case EnemyStateEnum.SearchingPlayer:
-			Patrol();
-			CheckPlayerProximity();
+
+			if (!(EnemyAttackType == EnemyAttackTypeEnum.Stationary))
+				Patrol(); // Patrula em busca do Jogador
+			
+			CheckPlayerProximity(); // Verifica se o Jogador esta no raio de proximidade
 
 			if (IsPlayerVisible)
 			{
@@ -90,8 +94,13 @@ public class Enemy : Character {
 			break;
 			case EnemyStateEnum.HasPlayer:
 
-			CheckPlayerProximity();
-			MoveToAttack();
+			CheckPlayerProximity(); // Verifica se o Jogador esta no raio de proximidade
+
+			if (!(EnemyAttackType == EnemyAttackTypeEnum.Stationary))
+				MoveToAttack();
+			else
+				IsPlayerAttackRangeRadius = IsPlayerOnAttackDistance(AttackRangeRadius);
+					
 			Attack();
 
 			if (!IsPlayerVisible)
@@ -165,32 +174,10 @@ public class Enemy : Character {
 		}
 	}
 
-	void Attack()
-	{
-		switch(EnemyAttackType)
-		{
-		case EnemyAttackTypeEnum.Melee:
-			break;
-		case EnemyAttackTypeEnum.Ranged:
-
-			if (IsPlayerAttackRangeRadius){
-				if (Time.time > _nextRangedAttackTime)
-				{
-					// TODO: MELHORAR PERFORMANCE COM O POOL DE OBJETOS E TIRAR A LAYERMASK DINAMICA
-					Projectile _newProjectile = Instantiate(RangedProjectile, GetForwardPosition, transform.rotation) as Projectile;
-
-					_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
-				}
-			}
-
-			break;
-		}
-	}
-
     bool MovetoAttackDistanceRadius(float attackDistanceRadius_)
 	{
 		// Verifica se o jogador esta no range do attack a distancia
-		if (Physics.OverlapSphereNonAlloc(transform.position, attackDistanceRadius_, _testSphereColliderResult, LayerMaskPlayer) == 0)
+		if (!IsPlayerOnAttackDistance(attackDistanceRadius_))
 		{
 			transform.Translate(Vector3.forward * Speed * Time.deltaTime);
 			//_navMeshAgent.SetDestination(_playerQuery[0].transform.position);
@@ -201,6 +188,40 @@ public class Enemy : Character {
 			_navMeshAgent.ResetPath();
 			return true;
 		}
+	}
+
+	void Attack()
+	{
+		switch(EnemyAttackType)
+		{
+		case EnemyAttackTypeEnum.Melee:
+			break;
+		case EnemyAttackTypeEnum.Ranged:
+		case EnemyAttackTypeEnum.Stationary:
+
+			if (IsPlayerAttackRangeRadius){
+				if (Time.time > _nextRangedAttackTime)
+				{
+					// TODO: MELHORAR PERFORMANCE COM O POOL DE OBJETOS E TIRAR A LAYERMASK DINAMICA
+					Projectile _newProjectile = Instantiate(RangedProjectile, GetForwardPosition, transform.rotation) as Projectile;
+
+					// Rotaciona o projetil
+					if (EnemyAttackType == EnemyAttackTypeEnum.Stationary)
+					{
+						_newProjectile.transform.LookAt(new Vector3(_playerQuery[0].transform.position.x, _newProjectile.transform.position.y, _playerQuery[0].transform.position.z));
+					}
+					_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
+				}
+			}
+
+			break;
+		}
+	}
+
+
+	bool IsPlayerOnAttackDistance(float attackDistanceRadius_)
+	{
+		return Physics.OverlapSphereNonAlloc(transform.position, attackDistanceRadius_, _testSphereColliderResult, LayerMaskPlayer) > 0;
 	}
 
 	void OnDrawGizmos()
@@ -217,6 +238,7 @@ public class Enemy : Character {
 			Gizmos.DrawWireSphere(GetForwardPosition, AttackMeleeRadius);			
 			break;
 		case EnemyAttackTypeEnum.Ranged:
+		case EnemyAttackTypeEnum.Stationary:
 			Gizmos.color = Color.magenta;
 			Gizmos.DrawWireSphere(transform.position, AttackRangeRadius);			
 			break;
