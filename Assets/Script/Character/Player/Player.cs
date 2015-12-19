@@ -72,6 +72,7 @@ public class Player : Character {
 		_moveToPosition += transform.position;
 
 		_rigidBody.MovePosition(_moveToPosition);
+		_rigidBody.velocity = Vector3.zero;
 	}
 
 	/// <summary>
