@@ -72,7 +72,7 @@ public class Player : Character {
 		_moveToPosition += transform.position;
 
 		_rigidBody.MovePosition(_moveToPosition);
-		_rigidBody.velocity = Vector3.zero;
+		_rigidBody.velocity = Vector3.zero; // Zera a velocidade para evitar movimentacoes desnecessarias do personagem
 	}
 
 	/// <summary>
