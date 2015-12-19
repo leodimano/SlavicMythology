@@ -49,7 +49,9 @@ public class ApplicationModel : MonoBehaviour {
 		GameObject _spell = Resources.Load(CONSTANTS.RESOURCES_PATH.SPELL_FIREBALL) as GameObject;
 		SpellBase _spellBase = _spell.GetComponent<SpellBase>();
 		_spellBase.gameObject.SetActive(false);
-		_spellBase.Pool = new PoolManager();
+
+		PoolManager _projectilePoolManager = new PoolManager();
+		_spellBase.Pool = _projectilePoolManager;
 		_spellBase.Pool.Initialize(20, this.transform);
 		_spellBase.Pool.AddObjectToPool(_spellBase, 20);
 

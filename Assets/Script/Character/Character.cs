@@ -8,21 +8,22 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour {
 
-
 	// Tipo do personagem
 	public ENUMERATORS.Character.CharacterTypeEnum CharacterType;
 
 	// Atributos de GameDesign
 	public CharacterAttribute[] Attributes;
 	public AttributeModifier[] AttributeModifiers;
+	public float[] SpellCoolDownTable;
 
 	#region Atributos de Controle
 
 	public float Speed;
 	[HideInInspector]
 	public float CurrentSpeed;
-
 	System.Random _pseudoRandom;
+
+	public int DoSpellID; // ID da Spell que deve ser utilizada
 
 	#endregion
 
@@ -45,6 +46,9 @@ public class Character : MonoBehaviour {
 
 		InitializeAttributes(); // TODO: Carregar os atributos do jogador Salvo ou nao. Se inimigo carregar os atributos baseado na tabela de atributos
 		AttributeModifiers = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
+
+		DoSpellID = -1; // Inicializa a variavel de controle de habilidades
+		SpellCoolDownTable = new float[CONSTANTS.SPELL.COUNT];
 	}
 	
 	// Update is called once per frame
@@ -197,6 +201,49 @@ public class Character : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	/// <summary>
+	/// Metodo responsavel por preparar a animacao de cast
+	/// </summary>
+	/// <param name="spellID_">ID da Habilidade que sera executada</param>
+	public bool StartSpellCast(int spellID_)
+	{
+		// Verifica se a habilidade esta em Cooldown
+		// TODO: Verifica se tem mana suficienta para utilizar a habilidade
+		if (Time.time > SpellCoolDownTable[spellID_])
+		{
+			DoSpellID = spellID_;
+			return true;
+		}
+		else
+		{
+			// TODO: MENSAGEM INFORMANDO QUE A HABILIDADE ESTA EM COOLDOWN
+			return false;
+		}
+	}
+
+	/// <summary>
+	/// Metodo responsavel por executar a habilidade
+	/// </summary>
+	public void DoSpellCast()
+	{
+		if (DoSpellID > -1){
+
+			SpellBase _spell = ApplicationModel.Instance.SpellTable[DoSpellID].Pool.GetFromPool() as SpellBase;
+
+			if (_spell != null){
+				
+				_spell.Caster = this;
+				_spell.transform.position = GetForwardPosition + Vector3.up;
+				_spell.transform.rotation = transform.rotation;
+
+				SpellCoolDownTable[DoSpellID] = Time.time + _spell.CoolDown;
+			}
+
+		}
+
+		DoSpellID = -1;
 	}
 
 	#endregion

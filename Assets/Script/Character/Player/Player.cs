@@ -22,6 +22,7 @@ public class Player : Character {
 		base.Update();
 		// Codifique daqui para baixo;
 
+		HandleActions();
 		HandleAnimation();
 	}
 
@@ -84,6 +85,18 @@ public class Player : Character {
 	{
 		// Rotaciona o personagem de acordo com o Eixo X do Mouse * Sensibilidade * DeltaTime
 		transform.Rotate(0, _playerInput.MouseX * Time.fixedDeltaTime, 0);
+	}
+
+	/// <summary>
+	/// Metodo responsavel por gerenciar as acoes do personagem
+	/// </summary>
+	void HandleActions()
+	{
+		if (_playerInput.Action2IsPressed)
+		{
+			if (StartSpellCast(0)) // TODO: Associar a spell ao botao
+				DoSpellCast(); // TODO: METODO DEVE SER CHAMADO NO RETORNO DA ANIMACAO
+		}
 	}
 
 	/// <summary>
