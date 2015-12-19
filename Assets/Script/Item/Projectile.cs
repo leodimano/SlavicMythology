@@ -12,13 +12,11 @@ public class Projectile : MonoBehaviour {
 	[HideInInspector]
 	public Character Damager;
 
-	Player _player;
 	Rigidbody _rigidBody;
 
 	// Use this for initialization
 	protected virtual void Start () {
 
-		_player = FindObjectOfType<Player>();
 		_rigidBody = GetComponent<Rigidbody>();
 		Destroy(this.gameObject, 5);
 	}
@@ -35,7 +33,7 @@ public class Projectile : MonoBehaviour {
 		if (collision_.gameObject.CompareTag(CONSTANTS.TAGS.PLAYER))
 		{			
 			Destroy(this.gameObject); // Destroy o Projetil
-			_player.ApplyDamage(Damager, DamageType); // Aplica o Dano no jogador
+			ApplicationModel.Instance.CurrentPlayer.ApplyDamage(Damager, DamageType); // Aplica o Dano no jogador
 		}
 		else{
 			if (LiveAfterHit)

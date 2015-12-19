@@ -16,12 +16,10 @@ public class CameraController : MonoBehaviour {
 	bool _isPlayerVisibileNow;
 
 	RaycastHit _rayCastHit;
-	Player _player;
 	Camera _camera;
 
 	// Use this for initialization
 	void Start () {	
-		_player = FindObjectOfType<Player>();
 		_camera = GetComponent<Camera>();
 	}
 	
@@ -66,21 +64,21 @@ public class CameraController : MonoBehaviour {
 	void PositionCamera(float cameraOffSetY_, float cameraOffSetZ_)
 	{
 		/* Atualizacao da Camera */
-		Vector3 newCameraPosition = new Vector3(_player.transform.position.x + _player.transform.forward.x * -1 * cameraOffSetZ_,
-			_player.transform.position.y + cameraOffSetY_,
-			_player.transform.position.z + _player.transform.forward.z * -1 * cameraOffSetZ_);
+		Vector3 newCameraPosition = new Vector3(ApplicationModel.Instance.CurrentPlayer.transform.position.x + ApplicationModel.Instance.CurrentPlayer.transform.forward.x * -1 * cameraOffSetZ_,
+			ApplicationModel.Instance.CurrentPlayer.transform.position.y + cameraOffSetY_,
+			ApplicationModel.Instance.CurrentPlayer.transform.position.z + ApplicationModel.Instance.CurrentPlayer.transform.forward.z * -1 * cameraOffSetZ_);
 		
 		_camera.transform.position = newCameraPosition + Vector3.up;
 
 		// Rotaciona a camera para o personagem
-		_camera.transform.LookAt(_player.transform.position);
+		_camera.transform.LookAt(ApplicationModel.Instance.CurrentPlayer.transform.position);
 		// Aplica o Offset da Camera
 	}
 
 	bool IsPlayerVisible()
 	{
 		Vector3 _cameraPosition = _camera.transform.position;
-		Vector3 _rayDirection =  _player.transform.position - _cameraPosition;
+		Vector3 _rayDirection =  ApplicationModel.Instance.CurrentPlayer.transform.position - _cameraPosition;
 
 		if (Physics.Raycast(_cameraPosition, _rayDirection, out _rayCastHit, 500f))
 		{
