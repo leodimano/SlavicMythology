@@ -2,34 +2,14 @@
 using System.Collections;
 
 
-public enum EnemyTypeEnum
-{
-	Normal,
-	MiniBoss,
-	Boss
-}
-
-public enum EnemyAttackTypeEnum
-{
-	Melee,
-	Ranged,
-	Stationary
-}
-
-public enum EnemyStateEnum
-{
-	SearchingPlayer,
-	HasPlayer,
-}
-
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : Character {
 
 	NavMeshAgent _navMeshAgent;
 
-	public EnemyStateEnum EnemyState;
-	public EnemyTypeEnum EnemyType;
-	public EnemyAttackTypeEnum EnemyAttackType;
+	public ENUMERATORS.Enemy.EnemyStateEnum EnemyState;
+	public ENUMERATORS.Enemy.EnemyTypeEnum EnemyType;
+	public ENUMERATORS.Enemy.EnemyAttackTypeEnum EnemyAttackType;
 
 	public float AggroRadius;
 	public Projectile RangedProjectile;
@@ -60,8 +40,8 @@ public class Enemy : Character {
 		base.Start ();
 
 		// Ajusta os valores inicias do inimigo
-		this.EnemyState = EnemyStateEnum.SearchingPlayer;
-		this.CharacterType = CharacterTypeEnum.Enemy;
+		this.EnemyState = ENUMERATORS.Enemy.EnemyStateEnum.SearchingPlayer;
+		this.CharacterType = ENUMERATORS.Character.CharacterTypeEnum.Enemy;
 
 		// Ajusta o agente de navegacao
 		_navMeshAgent = GetComponent<NavMeshAgent>();
@@ -80,24 +60,24 @@ public class Enemy : Character {
 
 		switch(EnemyState)
 		{
-			case EnemyStateEnum.SearchingPlayer:
+		case ENUMERATORS.Enemy.EnemyStateEnum.SearchingPlayer:
 
-			if (!(EnemyAttackType == EnemyAttackTypeEnum.Stationary))
+			if (!(EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary))
 				Patrol(); // Patrula em busca do Jogador
 			
 			CheckPlayerProximity(); // Verifica se o Jogador esta no raio de proximidade
 
 			if (IsPlayerVisible)
 			{
-				EnemyState = EnemyStateEnum.HasPlayer;
+				EnemyState = ENUMERATORS.Enemy.EnemyStateEnum.HasPlayer;
 			}
 
 			break;
-			case EnemyStateEnum.HasPlayer:
+		case ENUMERATORS.Enemy.EnemyStateEnum.HasPlayer:
 
 			CheckPlayerProximity(); // Verifica se o Jogador esta no raio de proximidade
 
-			if (!(EnemyAttackType == EnemyAttackTypeEnum.Stationary))
+			if (!(EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary))
 				MoveToAttack();
 			else
 				IsPlayerAttackRangeRadius = IsPlayerOnAttackDistance(AttackRangeRadius);
@@ -106,7 +86,7 @@ public class Enemy : Character {
 
 			if (!IsPlayerVisible)
 			{
-				EnemyState = EnemyStateEnum.SearchingPlayer;
+				EnemyState = ENUMERATORS.Enemy.EnemyStateEnum.SearchingPlayer;
 			}
 			break;
 		}
@@ -165,10 +145,10 @@ public class Enemy : Character {
 
 			switch(EnemyAttackType)
 			{
-			case EnemyAttackTypeEnum.Melee:
+			case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Melee:
 				IsPlayerAttackMeleeRadius = MovetoAttackDistanceRadius(AttackMeleeRadius);
 				break;
-			case EnemyAttackTypeEnum.Ranged:
+			case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Ranged:
 				IsPlayerAttackRangeRadius = MovetoAttackDistanceRadius(AttackRangeRadius);
 				break;
 			}
@@ -195,10 +175,10 @@ public class Enemy : Character {
 	{
 		switch(EnemyAttackType)
 		{
-		case EnemyAttackTypeEnum.Melee:
+		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Melee:
 			break;
-		case EnemyAttackTypeEnum.Ranged:
-		case EnemyAttackTypeEnum.Stationary:
+		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Ranged:
+		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary:
 
 			if (IsPlayerAttackRangeRadius){
 				if (Time.time > _nextRangedAttackTime)
@@ -207,13 +187,13 @@ public class Enemy : Character {
 					Projectile _newProjectile = Instantiate(RangedProjectile, GetForwardPosition, transform.rotation) as Projectile;
 
 					// Rotaciona o projetil
-					if (EnemyAttackType == EnemyAttackTypeEnum.Stationary)
+					if (EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary)
 					{
 						_newProjectile.transform.LookAt(new Vector3(_playerQuery[0].transform.position.x, _newProjectile.transform.position.y, _playerQuery[0].transform.position.z));
 					}
 
 					_newProjectile.Damager = this;
-					_newProjectile.DamageType = DamageType.Melee;
+					_newProjectile.DamageType = ENUMERATORS.Combat.DamageType.Melee;
 
 					_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
 				}
@@ -238,12 +218,12 @@ public class Enemy : Character {
 		// Desenha os gizmos de range
 		switch(EnemyAttackType)
 		{
-		case EnemyAttackTypeEnum.Melee:
+		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Melee:
 			Gizmos.color = Color.magenta;
 			Gizmos.DrawWireSphere(GetForwardPosition, AttackMeleeRadius);			
 			break;
-		case EnemyAttackTypeEnum.Ranged:
-		case EnemyAttackTypeEnum.Stationary:
+		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Ranged:
+		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary:
 			Gizmos.color = Color.magenta;
 			Gizmos.DrawWireSphere(transform.position, AttackRangeRadius);			
 			break;

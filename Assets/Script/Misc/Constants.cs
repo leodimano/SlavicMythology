@@ -13,7 +13,8 @@ public class CONSTANTS
 	/// </summary>
 	public class ATTRIBUTES
 	{
-		public const int COUNT = 9;
+		public const int ATTRIBUTE_COUNT = 9;
+		public const int ATTRIBUTE_MODIFIERS_COUNT = 100;
 
 		public static string[] TYPE_NAMES = new string[]{
 			"Vigor",

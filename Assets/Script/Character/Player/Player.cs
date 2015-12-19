@@ -13,7 +13,7 @@ public class Player : Character {
 		// Codifique daqui para baixo;
 		_playerInput = GetComponent<PlayerInput>();
 
-		base.CharacterType = CharacterTypeEnum.Player;
+		base.CharacterType = ENUMERATORS.Character.CharacterTypeEnum.Player;
 	}
 	
 	// Update is called once per frame

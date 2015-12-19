@@ -6,7 +6,7 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 
 	public float Speed;
-	public DamageType DamageType;
+	public ENUMERATORS.Combat.DamageType DamageType;
 	public bool LiveAfterHit;
 
 	[HideInInspector]
