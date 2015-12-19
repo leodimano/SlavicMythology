@@ -117,18 +117,20 @@ public class Enemy : Character {
 		IsPlayerVisible = false;
 		_playerQuery[0] = null;
 
+		Vector3 _localForwardPosition = GetForwardPosition;
+
 		if (Physics.OverlapSphereNonAlloc(transform.position, AggroRadius, _playerQuery, LayerMaskPlayer) > 0)
 		{
 			IsPlayerAggroRange = true;
 
-			if (Physics.Raycast(GetForwardPosition, (_playerQuery[0].transform.position - GetForwardPosition) + Vector3.up, out _raycastHit, 500f, RaycastPlayerLayerMask))
+			if (Physics.Raycast(_localForwardPosition, (_playerQuery[0].transform.position - _localForwardPosition) + Vector3.up, out _raycastHit, 500f, RaycastPlayerLayerMask))
 			{
 				if (_raycastHit.collider.gameObject.CompareTag(CONSTANTS.TAGS.PLAYER)){
-					Debug.DrawLine(GetForwardPosition, _raycastHit.point, Color.green);
+					Debug.DrawLine(_localForwardPosition, _raycastHit.point, Color.green);
 					IsPlayerVisible = true;
 				}
 				else{
-					Debug.DrawLine(GetForwardPosition, _raycastHit.point, Color.red);
+					Debug.DrawLine(_localForwardPosition, _raycastHit.point, Color.red);
 				}
 			}
 		}
