@@ -29,16 +29,13 @@ public class CONSTANTS
 		};
 	}
 
-	public class VECTORS
-	{
-		public static Vector3 __DEFAULT_VECTOR3__ = new Vector3();
-	}
-
 	public class INPUT
 	{
 		public const string HORIZONTAL_AXIS = "Horizontal";
 		public const string VERTICAL_AXIS = "Vertical";
 		public const string MOUSE_X = "Mouse X";
+		public const int MOUSE_LEFT_BUTTON = 0;
+		public const int MOUSE_RIGHT_BUTTON = 1;
 	}
 
 	public class TAGS
@@ -49,6 +46,23 @@ public class CONSTANTS
 	public class ANIMATION
 	{
 		public const string SPEED = "Speed";
+	}
+
+	public class SPELL
+	{
+		public const int COUNT = 10;
+	}
+
+	public class ITEM
+	{
+		public const int PROJECTILE_COUNT = 10;
+	}
+
+	public class RESOURCES_PATH
+	{
+		public const string SPELL_FIREBALL = "Prefab/Spell/SPELL_FireBall";
+
+		public const string PROJECTILE_ARROW_PROTOTYPE = "Prefab/Item/Projectile/PrototypeArrow";
 	}
 }
 

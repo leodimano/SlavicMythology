@@ -11,13 +11,15 @@ using System.Collections;
 /// <summary>
 /// Define uma classe base de habilidade
 /// </summary>
-public class SpellBase : MonoBehaviour {
+public class SpellBase : PoolObject {
 
 	public int ID; // ID da Spell para carregar da Tabela de Habilidaes
 	public GameObject SpellObject; /// Responsavel por manter o objeto que representa a spell a ser utilizada seja Mesh, particula, etc...
 	public Character Caster; /// Personagem que gerou a habilidade
 	public Character Target; // Alvo da Habilidade se houver;
 	public AttributeModifier[] AttributeModifiers; /// Modificadores que serao aplicados ao personagem, se houverem;
+	public float Damage; /// Dano base da habilidade se houver
+
 
 	// Use this for initialization
 	protected virtual void Start () {

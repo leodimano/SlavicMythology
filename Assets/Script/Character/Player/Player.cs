@@ -8,27 +8,28 @@ public class Player : Character {
 
 	// Use this for initialization
 	protected override void Start () {
+		// NAO CODIFICAR NESSA AREA. SOMENTE SE NECESSARIO
 		base.Start();
-
 		// Codifique daqui para baixo;
-		_playerInput = GetComponent<PlayerInput>();
 
+		_playerInput = GetComponent<PlayerInput>();
 		base.CharacterType = ENUMERATORS.Character.CharacterTypeEnum.Player;
 	}
 	
 	// Update is called once per frame
 	protected override void Update () {
-
-
+		// NAO CODIFICAR NESSA AREA. SOMENTE SE NECESSARIO
 		base.Update();
-
 		// Codifique daqui para baixo;
+
 		HandleAnimation();
 	}
 
 	// Fixed Update
 	protected override void FixedUpdate(){
+		// NAO CODIFICAR NESSA AREA. SOMENTE SE NECESSARIO
 		base.FixedUpdate();
+		// Codifique daqui para baixo;
 
 		HandleMovement();
 		HandleRotation();
@@ -41,6 +42,7 @@ public class Player : Character {
 
 
 		base.LateUpdate();
+		// NAO CODIFICAR NESSA AREA. SOMENTE SE NECESSARIO
 	}
 
 
@@ -94,7 +96,6 @@ public class Player : Character {
 			_animator.SetFloat(CONSTANTS.ANIMATION.SPEED, base.CurrentSpeed);
 		}
 	}
-
 
 	#endregion
 }

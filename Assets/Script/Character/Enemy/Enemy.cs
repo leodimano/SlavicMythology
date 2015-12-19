@@ -12,6 +12,7 @@ public class Enemy : Character {
 	public ENUMERATORS.Enemy.EnemyAttackTypeEnum EnemyAttackType;
 
 	public float AggroRadius;
+	public int ProjectileTableId; // ID do projetil para ser utilizado
 	public Projectile RangedProjectile;
 	public float RangeAttackCoolDown;
 	public float AttackRangeRadius;
@@ -183,19 +184,25 @@ public class Enemy : Character {
 			if (IsPlayerAttackRangeRadius){
 				if (Time.time > _nextRangedAttackTime)
 				{
-					// TODO: MELHORAR PERFORMANCE COM O POOL DE OBJETOS E TIRAR A LAYERMASK DINAMICA
-					Projectile _newProjectile = Instantiate(RangedProjectile, GetForwardPosition, transform.rotation) as Projectile;
+					Projectile _newProjectile = ApplicationModel.Instance.ProjectileTable[ProjectileTableId].Pool.GetFromPool() as Projectile;
 
-					// Rotaciona o projetil
-					if (EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary)
-					{
-						_newProjectile.transform.LookAt(new Vector3(_playerQuery[0].transform.position.x, _newProjectile.transform.position.y, _playerQuery[0].transform.position.z));
+					// Se for igual a nulo nao tem mais objetos no pool para recuperar, deve aguardar por um novo objeto ser liberado
+					if (_newProjectile != null){
+					
+						_newProjectile.transform.position = GetForwardPosition;
+						_newProjectile.transform.rotation = transform.rotation;
+
+						// Rotaciona o projetil
+						if (EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary)
+						{
+							_newProjectile.transform.LookAt(new Vector3(_playerQuery[0].transform.position.x, _newProjectile.transform.position.y, _playerQuery[0].transform.position.z));
+						}
+
+						_newProjectile.Damager = this;
+						_newProjectile.DamageType = ENUMERATORS.Combat.DamageType.Melee;
+
+						_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
 					}
-
-					_newProjectile.Damager = this;
-					_newProjectile.DamageType = ENUMERATORS.Combat.DamageType.Melee;
-
-					_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
 				}
 			}
 
