@@ -13,16 +13,15 @@ public class Enemy : Character {
 
 	public float AggroRadius;
 	public int ProjectileTableId; // ID do projetil para ser utilizado
-	public Projectile RangedProjectile;
-	public float RangeAttackCoolDown;
-	public float AttackRangeRadius;
-	public float AttackMeleeRadius;
+	public float RangedAttackCoolDown;
+	public float RangedAttackRadius;
+	public float MeleeAttackCoolDown;
+	public float MeleeAttackRadius;
 	public LayerMask RaycastPlayerLayerMask;
+	public bool IsPlayerAggroRadius;
 	public bool IsPlayerVisible;
-	public bool IsPlayerAggroRange;
-	public bool IsPlayerAttackRangeRadius;
-	public bool IsPlayerAttackMeleeRadius;
-
+	public bool IsPlayerRangedAttackRadius;
+	public bool IsPlayerMeleeAttackRadius;
 
 	private float _nextRangedAttackTime;
 
@@ -31,7 +30,6 @@ public class Enemy : Character {
 	Collider[] _playerQuery;
 	Collider[] _testSphereColliderResult;
 	RaycastHit _raycastHit;
-
 
 	public Vector2 WalkingCoolDown;
 	float _nextWalking;
@@ -81,7 +79,7 @@ public class Enemy : Character {
 			if (!(EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary))
 				MoveToAttack();
 			else
-				IsPlayerAttackRangeRadius = IsPlayerOnAttackDistance(AttackRangeRadius);
+				IsPlayerRangedAttackRadius = IsPlayerOnAttackDistance(RangedAttackRadius);
 					
 			Attack();
 
@@ -94,6 +92,12 @@ public class Enemy : Character {
 
 		if (!_navMeshAgent.hasPath)
 			_navMeshAgent.velocity = Vector3.zero;
+	}
+
+	public override void Die ()
+	{
+		base.Die ();
+		Debug.Log("Inimigo Morto:" + gameObject.name);
 	}
 
 	void Patrol()
@@ -113,7 +117,7 @@ public class Enemy : Character {
 
 	void CheckPlayerProximity()
 	{
-		IsPlayerAggroRange = false;
+		IsPlayerAggroRadius = false;
 		IsPlayerVisible = false;
 		_playerQuery[0] = null;
 
@@ -121,9 +125,9 @@ public class Enemy : Character {
 
 		if (Physics.OverlapSphereNonAlloc(transform.position, AggroRadius, _playerQuery, LayerMaskPlayer) > 0)
 		{
-			IsPlayerAggroRange = true;
+			IsPlayerAggroRadius = true;
 
-			if (Physics.Raycast(_localForwardPosition, (_playerQuery[0].transform.position - _localForwardPosition) + Vector3.up, out _raycastHit, 500f, RaycastPlayerLayerMask))
+			if (Physics.Raycast(_localForwardPosition, (ApplicationModel.Instance.CurrentPlayer.transform.position - _localForwardPosition) + Vector3.up, out _raycastHit, 500f, RaycastPlayerLayerMask))
 			{
 				if (_raycastHit.collider.gameObject.CompareTag(CONSTANTS.TAGS.PLAYER)){
 					Debug.DrawLine(_localForwardPosition, _raycastHit.point, Color.green);
@@ -138,21 +142,21 @@ public class Enemy : Character {
 
 	void MoveToAttack()
 	{
-		IsPlayerAttackMeleeRadius = false;
-		IsPlayerAttackRangeRadius = false;
+		IsPlayerMeleeAttackRadius = false;
+		IsPlayerRangedAttackRadius = false;
 
 		if (IsPlayerVisible)
 		{
-			Vector3 _lookAt = new Vector3(_playerQuery[0].transform.position.x, transform.position.y, _playerQuery[0].transform.position.z);
+			Vector3 _lookAt = new Vector3(ApplicationModel.Instance.CurrentPlayer.transform.position.x, transform.position.y, ApplicationModel.Instance.CurrentPlayer.transform.position.z);
 			this.transform.LookAt(_lookAt);
 
 			switch(EnemyAttackType)
 			{
 			case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Melee:
-				IsPlayerAttackMeleeRadius = MovetoAttackDistanceRadius(AttackMeleeRadius);
+				IsPlayerMeleeAttackRadius = MovetoAttackDistanceRadius(MeleeAttackRadius);
 				break;
 			case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Ranged:
-				IsPlayerAttackRangeRadius = MovetoAttackDistanceRadius(AttackRangeRadius);
+				IsPlayerRangedAttackRadius = MovetoAttackDistanceRadius(RangedAttackRadius);
 				break;
 			}
 		}
@@ -183,7 +187,7 @@ public class Enemy : Character {
 		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Ranged:
 		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary:
 
-			if (IsPlayerAttackRangeRadius){
+			if (IsPlayerRangedAttackRadius){
 				if (Time.time > _nextRangedAttackTime)
 				{
 					Projectile _newProjectile = ApplicationModel.Instance.ProjectileTable[ProjectileTableId].Pool.GetFromPool() as Projectile;
@@ -192,18 +196,19 @@ public class Enemy : Character {
 					if (_newProjectile != null){
 					
 						_newProjectile.transform.position = GetForwardPosition;
-						_newProjectile.transform.rotation = transform.rotation;
+//						_newProjectile.transform.rotation = new Quaternion(0, transform.transform.rotation.y, 0, 0);
+						//_newProjectile.transform.rotation = transform.rotation;
 
 						// Rotaciona o projetil
-						if (EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary)
-						{
-							_newProjectile.transform.LookAt(new Vector3(_playerQuery[0].transform.position.x, _newProjectile.transform.position.y, _playerQuery[0].transform.position.z));
-						}
+//						if (EnemyAttackType == ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary)
+						//{
+						_newProjectile.transform.LookAt(new Vector3(ApplicationModel.Instance.CurrentPlayer.transform.position.x, _newProjectile.transform.position.y, ApplicationModel.Instance.CurrentPlayer.transform.position.z));
+						//}
 
 						_newProjectile.Damager = this;
 						_newProjectile.DamageType = ENUMERATORS.Combat.DamageType.Melee;
 
-						_nextRangedAttackTime = Time.time + RangeAttackCoolDown;
+						_nextRangedAttackTime = Time.time + RangedAttackCoolDown;
 					}
 				}
 			}
@@ -229,12 +234,12 @@ public class Enemy : Character {
 		{
 		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Melee:
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere(GetForwardPosition, AttackMeleeRadius);			
+			Gizmos.DrawWireSphere(GetForwardPosition, MeleeAttackRadius);			
 			break;
 		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Ranged:
 		case ENUMERATORS.Enemy.EnemyAttackTypeEnum.Stationary:
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere(transform.position, AttackRangeRadius);			
+			Gizmos.DrawWireSphere(transform.position, RangedAttackRadius);			
 			break;
 		}
 	}

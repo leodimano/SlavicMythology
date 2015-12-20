@@ -71,8 +71,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158710}
-  m_LocalRotation: {x: 0, y: 0.0020943936, z: 0, w: 0.9999978}
-  m_LocalPosition: {x: 21.75, y: 1, z: 19.5}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: 23.75, y: 1, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 486140}
@@ -101,7 +101,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 75c31b29f6cd31748b76ab6487c77f8f, type: 2}
+  - {fileID: 2100000, guid: df3addf8adc4ff9478fb48f29e2ac1e8, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -127,7 +127,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 75c31b29f6cd31748b76ab6487c77f8f, type: 2}
+  - {fileID: 2100000, guid: df3addf8adc4ff9478fb48f29e2ac1e8, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -196,28 +196,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterType: 2
-  Attributes: []
-  SpellCoolDownTable: []
-  Speed: 8
+  Attributes:
+  - Name: Vitalidade
+    AttributeType: 4
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Sabedoria
+    AttributeType: 5
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 1
+  - Name: Vigor
+    AttributeType: 0
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 2
+  - Name: Inteligencia
+    AttributeType: 2
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Resistencia
+    AttributeType: 1
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: '**Defesa Magica**'
+    AttributeType: 3
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Agilidade
+    AttributeType: 6
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Ira
+    AttributeType: 8
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Conhecimento
+    AttributeType: 7
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  Speed: 0
   CurrentSpeed: 0
+  SpellCoolDownTable: []
   DoSpellID: 0
   EnemyState: 0
   EnemyType: 0
   EnemyAttackType: 2
   AggroRadius: 10
   ProjectileTableId: 0
-  RangedProjectile: {fileID: 11430348, guid: fe1da06a23af0f94b886aad0293f6a12, type: 2}
-  RangeAttackCoolDown: 0.1
-  AttackRangeRadius: 10
-  AttackMeleeRadius: 2
+  RangedAttackCoolDown: 0.1
+  RangedAttackRadius: 10
+  MeleeAttackCoolDown: 0
+  MeleeAttackRadius: 0
   RaycastPlayerLayerMask:
     serializedVersion: 2
-    m_Bits: 4294963707
+    m_Bits: 275
+  IsPlayerAggroRadius: 0
   IsPlayerVisible: 0
-  IsPlayerAggroRange: 0
-  IsPlayerAttackRangeRadius: 0
-  IsPlayerAttackMeleeRadius: 0
-  WalkingCoolDown: {x: 1, y: 4}
+  IsPlayerRangedAttackRadius: 0
+  IsPlayerMeleeAttackRadius: 0
+  WalkingCoolDown: {x: 0, y: 0}
 --- !u!195 &19594470
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -260,7 +314,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 75c31b29f6cd31748b76ab6487c77f8f, type: 2}
+      objectReference: {fileID: 2100000, guid: df3addf8adc4ff9478fb48f29e2ac1e8, type: 2}
     - target: {fileID: 0}
       propertyPath: RaycastPlayerLayerMask.m_Bits
       value: 4294963707

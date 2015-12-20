@@ -696,6 +696,10 @@ MonoBehaviour:
   Move_X: 0
   Move_Y: 0
   MouseX: 0
+  Action1IsPressed: 0
+  Action1WasPressed: 0
+  Action2IsPressed: 0
+  Action2WasPressed: 0
 --- !u!114 &11459414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -708,9 +712,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterType: 1
-  Attributes: []
+  Attributes:
+  - Name: Vitalidade
+    AttributeType: 4
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Sabedoria
+    AttributeType: 5
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 1
+  - Name: Vigor
+    AttributeType: 0
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 2
+  - Name: Inteligencia
+    AttributeType: 2
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Resistencia
+    AttributeType: 1
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: '**Defesa Magica**'
+    AttributeType: 3
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Agilidade
+    AttributeType: 6
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Ira
+    AttributeType: 8
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Conhecimento
+    AttributeType: 7
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  SpellCoolDownTable: []
   Speed: 10
   CurrentSpeed: 0
+  DoSpellID: 0
 --- !u!136 &13683646
 CapsuleCollider:
   m_ObjectHideFlags: 1

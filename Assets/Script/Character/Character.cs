@@ -7,25 +7,18 @@ using System.Collections.Generic;
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour {
-
+	
 	// Tipo do personagem
 	public ENUMERATORS.Character.CharacterTypeEnum CharacterType;
 
 	// Atributos de GameDesign
-	public CharacterAttribute[] Attributes;
-	public AttributeModifier[] AttributeModifiers;
-	public float[] SpellCoolDownTable;
-
-	#region Atributos de Controle
-
+	public CharacterAttribute[] Attributes = InitializeAttributes();
+	public AttributeModifier[] AttributeModifiers = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
 	public float Speed;
-	[HideInInspector]
-	public float CurrentSpeed;
+	[HideInInspector] public float CurrentSpeed;
+	[HideInInspector] public float[] SpellCoolDownTable;
+	[HideInInspector] public int DoSpellID; // ID da Spell que deve ser utilizada
 	System.Random _pseudoRandom;
-
-	public int DoSpellID; // ID da Spell que deve ser utilizada
-
-	#endregion
 
 	#region Componentes da Unity
 
@@ -44,7 +37,7 @@ public class Character : MonoBehaviour {
 		_rigidBody = GetComponent<Rigidbody>();
 		_animator = GetComponent<Animator>();
 
-		InitializeAttributes(); // TODO: Carregar os atributos do jogador Salvo ou nao. Se inimigo carregar os atributos baseado na tabela de atributos
+		//InitializeAttributes(); // TODO: Carregar os atributos do jogador Salvo ou nao. Se inimigo carregar os atributos baseado na tabela de atributos
 		AttributeModifiers = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
 
 		DoSpellID = -1; // Inicializa a variavel de controle de habilidades
@@ -76,60 +69,87 @@ public class Character : MonoBehaviour {
 	/// <summary>
 	/// Metodo responsavel por inicializar a arvore de atributos
 	/// </summary>
-	void InitializeAttributes()
+	private static CharacterAttribute[] InitializeAttributes()
 	{
-		Attributes = new CharacterAttribute[CONSTANTS.ATTRIBUTES.ATTRIBUTE_COUNT];
-
-		CharacterAttribute _charAttr = null;
-
-		for(int _index = 0; _index < CONSTANTS.ATTRIBUTES.ATTRIBUTE_COUNT; _index++)
-		{			
-			_charAttr = new CharacterAttribute();
-			_charAttr.AttributeType = (ENUMERATORS.Attribute.CharacterAttributeTypeEnum)_index;
-			_charAttr.Current = 0;
-			_charAttr.Max = 0;
-			_charAttr.Modifiers = 0;
-			//_charAttr.MaxBuffed = 0;
-			_charAttr.Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[_index];
-
-			switch(_charAttr.AttributeType)
-			{
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint:
-				_charAttr.DisplayOrder = 0;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint:
-				_charAttr.DisplayOrder = 1;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack:
-				_charAttr.DisplayOrder = 2;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack:
-				_charAttr.DisplayOrder = 3;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense:
-				_charAttr.DisplayOrder = 4;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense:
-				_charAttr.DisplayOrder = 5;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed:
-				_charAttr.DisplayOrder = 6;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance:
-				_charAttr.DisplayOrder = 7;
-				break;
-			case ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier:
-				_charAttr.DisplayOrder = 8;
-				break;
-			}
-
-			Attributes[_index] = _charAttr; 
-		}
+		return
+			new CharacterAttribute[CONSTANTS.ATTRIBUTES.ATTRIBUTE_COUNT]{
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 1},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 2},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0},
+			new CharacterAttribute(){ 			
+				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier], 
+				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier,
+				Max = 0,
+				Current = 0,
+				Modifiers = 0,
+				DisplayOrder = 0}
+		};		
 	}
 
 	#endregion
 
 	#region Public Methods
+
+	/// <summary>
+	/// Metodo responsavel por gerenciar a morte do personagem, deve ser sobrescrito nas classes que herdam de Character
+	/// </summary>
+	public virtual void Die()
+	{
+		
+	}
 
 	/// <summary>
 	/// Metodo responsavel por calcular o dano recebido do personagem
@@ -261,6 +281,11 @@ public class Character : MonoBehaviour {
 
 		if (ManaPoint.Current < 0){
 			ManaPoint.Current = 0;
+		}
+
+		if (HitPoint.Current == 0)
+		{
+			Die();
 		}
 	}
 

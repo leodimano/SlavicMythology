@@ -7,8 +7,16 @@
 public class CharacterAttribute
 {
 	/// <summary>
+	/// Retorna o nome do atributo.
+	/// </summary>
+	/// <value>Nome do atributo.</value>
+	[ReadOnlyInInspectorAttribute] 
+	public string Name;
+
+	/// <summary>
 	/// Tipo do Atributo
 	/// </summary>
+	[ReadOnlyInInspectorAttribute]
 	public ENUMERATORS.Attribute.CharacterAttributeTypeEnum AttributeType;
 
 	/// <summary>
@@ -36,14 +44,9 @@ public class CharacterAttribute
 	}
 
 	/// <summary>
-	/// Retorna o nome do atributo.
-	/// </summary>
-	/// <value>Nome do atributo.</value>
-	public string Name;
-
-	/// <summary>
 	/// Ordem que o atributo deve ser apresentado;
 	/// </summary>
+	[ReadOnlyInInspectorAttribute]
 	public byte DisplayOrder;
 }
 

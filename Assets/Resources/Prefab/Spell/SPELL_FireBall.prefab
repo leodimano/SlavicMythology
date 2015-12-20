@@ -110,7 +110,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   NeedTarget: 0
   Damage: 50
-  CoolDown: 0.75
+  CoolDown: 0.25
   ManaCost: 10
   Speed: 25
 --- !u!1001 &100100000
@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: CoolDown
-      value: 0.75
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ManaCost

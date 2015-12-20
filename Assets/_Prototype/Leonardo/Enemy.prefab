@@ -195,8 +195,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984c0dfe57305a349a60f793984922ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterType: 2
-  Attributes: []
+  CharacterType: 0
+  Attributes:
+  - Name: Vitalidade
+    AttributeType: 4
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Sabedoria
+    AttributeType: 5
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 1
+  - Name: Vigor
+    AttributeType: 0
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 2
+  - Name: Inteligencia
+    AttributeType: 2
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Resistencia
+    AttributeType: 1
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: '**Defesa Magica**'
+    AttributeType: 3
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Agilidade
+    AttributeType: 6
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Ira
+    AttributeType: 8
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
+  - Name: Conhecimento
+    AttributeType: 7
+    Max: 0
+    Current: 0
+    Modifiers: 0
+    DisplayOrder: 0
   SpellCoolDownTable: []
   Speed: 8
   CurrentSpeed: 0
@@ -204,19 +258,19 @@ MonoBehaviour:
   EnemyState: 0
   EnemyType: 0
   EnemyAttackType: 1
-  AggroRadius: 10
+  AggroRadius: 11
   ProjectileTableId: 0
-  RangedProjectile: {fileID: 11430348, guid: fe1da06a23af0f94b886aad0293f6a12, type: 2}
-  RangeAttackCoolDown: 1.5
-  AttackRangeRadius: 8
-  AttackMeleeRadius: 2
+  RangedAttackCoolDown: 1
+  RangedAttackRadius: 8
+  MeleeAttackCoolDown: 0
+  MeleeAttackRadius: 0
   RaycastPlayerLayerMask:
     serializedVersion: 2
-    m_Bits: 4294963707
+    m_Bits: 275
   IsPlayerVisible: 0
   IsPlayerAggroRange: 0
-  IsPlayerAttackRangeRadius: 0
-  IsPlayerAttackMeleeRadius: 0
+  IsPlayerRangedAttackRadius: 0
+  IsPlayerMeleeAttackRadius: 0
   WalkingCoolDown: {x: 1, y: 4}
 --- !u!195 &19584498
 NavMeshAgent:
@@ -246,8 +300,56 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: Attributes.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: RaycastPlayerLayerMask.m_Bits
-      value: 4294963707
+      value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Attributes.Array.data[1].AttributeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Attributes.Array.data[2].AttributeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Attributes.Array.data[3].AttributeType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IsPlayerAggroRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: EnemyAttackType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: AggroRadius
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RangedAttackCoolDown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RangedAttackRadius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: WalkingCoolDown.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: WalkingCoolDown.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
