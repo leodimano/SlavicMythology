@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408ee50cf169a47449eeb6003ef2ded0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraOffSetZ: 9
-  CameraOffSetY: 6
+  CameraOffSetZ: 8
+  CameraOffSetY: 2
   FixCameraRate: 10
   FixBackCameraRate: 15
 --- !u!124 &12409332
@@ -108,7 +108,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: CameraOffSetZ
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: CameraOffSetY
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 179848}
