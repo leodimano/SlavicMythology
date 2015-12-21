@@ -4,7 +4,17 @@ using System.Collections;
 public class ApplicationModel : MonoBehaviour {
 
 	public static ApplicationModel Instance; // Singleton Pattern
-	public Player CurrentPlayer;
+	private Player _currentPlayer = null;
+
+	public Player CurrentPlayer {
+		get{
+
+			if (_currentPlayer == null)
+				_currentPlayer = FindObjectOfType<Player>();
+
+			return _currentPlayer;
+		}
+	}
 
 	/// <summary>
 	/// Awake this instance.
@@ -34,8 +44,8 @@ public class ApplicationModel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Se perder a instancia do jogador, busca o jogador e atualiza o objeto
-		if (CurrentPlayer == null)
-			CurrentPlayer = FindObjectOfType<Player>();
+		if (_currentPlayer == null)
+			_currentPlayer = FindObjectOfType<Player>();
 
 	}
 
