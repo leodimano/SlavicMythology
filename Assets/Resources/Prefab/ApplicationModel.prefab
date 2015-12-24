@@ -39,7 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd286f59e1dc8c9478424ca88ee25a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentPlayer: {fileID: 0}
+  SpellTable: []
+  ProjectileTable: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

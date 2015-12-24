@@ -9,10 +9,12 @@ public class DayNightCycle : MonoBehaviour {
 	private const float DayStartHour = 6f;
 	private const float NightStartHour = 18f;
 
-
+	public ReflectionProbe TerrainReflectionProbe;
 	public ParticleSystem StarField;
 	public Material SceneSkyBoxMat;
+	private Material _clonedSceneSkyBoxMat;
 	public Light SunLight;
+	public Light MoonLight;
 	public Gradient DayNightCycleColor;
 	public AnimationCurve Thickness;
 	public AnimationCurve Exposure;
@@ -41,6 +43,9 @@ public class DayNightCycle : MonoBehaviour {
 
 		StartAtHour *= 60 * 60; // Hora * Minuto * Segundo
 		CurrentTimeInSeconds = StartAtHour;
+
+		// Clone de Skybox
+		_clonedSceneSkyBoxMat = new Material(SceneSkyBoxMat);
 	}		
 
 	// Update is called once per frame
@@ -49,12 +54,25 @@ public class DayNightCycle : MonoBehaviour {
 		CalculateWorldCurrentTime();
 		SetLightColor();
 		SetSkyBox();
+		SetStars();
 		SetDisplayHour();
 
-		if (Hour > 16) StarField.Play(true);
-		else if (Hour > 8) {
-			StarField.Stop(true);
-			StarField.Clear(true);
+		if (TerrainReflectionProbe != null)
+		{
+			//if (Hour%2 == 0)
+			//	TerrainReflectionProbe.RenderProbe();
+		}
+	}
+
+	void SetStars()
+	{
+		if (StarField != null)
+		{
+			if (Hour > 16) StarField.Play(true);
+			else if (Hour > 8) {
+				StarField.Stop(true);
+				StarField.Clear(true);
+			}			
 		}
 	}
 
@@ -97,16 +115,26 @@ public class DayNightCycle : MonoBehaviour {
 	/// </summary>
 	void SetLightColor()
 	{
+		float rotateTo = 360f * (Cross - 0.25f);
+
 		if (SunLight != null)
 		{
 			SunLight.color = DayNightCycleColor.Evaluate(Cross);
 
-			float rotateTo = 360f * (Cross - 0.25f);
 			SunLight.transform.rotation = Quaternion.Euler(rotateTo, 270, 0);
 
 			RenderSettings.ambientSkyColor = SunLight.color;
 
-		}		
+		}
+
+		if (MoonLight != null)
+		{
+			MoonLight.color = DayNightCycleColor.Evaluate(Cross);
+
+			MoonLight.transform.rotation = Quaternion.Euler(rotateTo * -1, 270 * -1, 0);
+
+			RenderSettings.ambientSkyColor = SunLight.color;
+		}
 	}
 
 	/// <summary>
@@ -114,12 +142,10 @@ public class DayNightCycle : MonoBehaviour {
 	/// </summary>
 	void SetSkyBox()
 	{
-		if (SceneSkyBoxMat != null)
+		if (_clonedSceneSkyBoxMat != null)
 		{
-			SceneSkyBoxMat.SetColor("_SkyTint", SunLight.color);
-			SceneSkyBoxMat.SetColor("_GroundColor", SunLight.color);
-			SceneSkyBoxMat.SetFloat("_AtmosphereThickness", Thickness.Evaluate(Cross));
-			SceneSkyBoxMat.SetFloat("_Exposure", Exposure.Evaluate(Cross));
+			_clonedSceneSkyBoxMat.SetFloat("_AtmosphereThickness", Thickness.Evaluate(Cross));
+			_clonedSceneSkyBoxMat.SetFloat("_Exposure", Exposure.Evaluate(Cross));
 		}
 	}
 
