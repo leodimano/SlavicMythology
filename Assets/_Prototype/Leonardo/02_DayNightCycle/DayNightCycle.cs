@@ -119,6 +119,9 @@ public class DayNightCycle : MonoBehaviour {
 
 		if (SunLight != null)
 		{
+			if (Hour >= 6 && !SunLight.enabled) SunLight.enabled = true;
+			if (Hour >= 18 && SunLight.enabled) SunLight.enabled = false;
+
 			SunLight.color = DayNightCycleColor.Evaluate(Cross);
 
 			SunLight.transform.rotation = Quaternion.Euler(rotateTo, 270, 0);
@@ -129,6 +132,9 @@ public class DayNightCycle : MonoBehaviour {
 
 		if (MoonLight != null)
 		{
+			if (Hour >= 18 && !MoonLight.enabled) MoonLight.enabled = true;
+			if (Hour >= 6 && MoonLight.enabled) MoonLight.enabled = false;
+
 			MoonLight.color = DayNightCycleColor.Evaluate(Cross);
 
 			MoonLight.transform.rotation = Quaternion.Euler(rotateTo * -1, 270 * -1, 0);

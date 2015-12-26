@@ -19,7 +19,7 @@ Material:
       data:
         first:
           name: _Exposure
-        second: 0.35003793
+        second: 1.3
       data:
         first:
           name: _SunDisk
@@ -31,7 +31,7 @@ Material:
       data:
         first:
           name: _AtmosphereThickness
-        second: 0.5500082
+        second: 1
     m_Colors:
       data:
         first:
