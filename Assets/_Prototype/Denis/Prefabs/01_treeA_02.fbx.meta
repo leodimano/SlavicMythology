@@ -1,22 +1,24 @@
 fileFormatVersion: 2
-guid: 75eb3206fb61bf144830dd27d326b32e
-timeCreated: 1451169606
+guid: cd8147f6f1453694992c2cc2e3c771f0
+timeCreated: 1451785394
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: polySurface7
-    100004: polySurface8
+    100002: _treeCopaA_02
+    100004: _treeTronco_01
+    100006: _treeTroncoA_02
     400000: //RootNode
-    400002: polySurface7
-    400004: polySurface8
-    2300000: polySurface7
-    2300002: polySurface8
-    3300000: polySurface7
-    3300002: polySurface8
-    4300000: polySurface7
-    4300002: polySurface8
+    400002: _treeCopaA_02
+    400004: _treeTronco_01
+    400006: _treeTroncoA_02
+    2300000: _treeCopaA_02
+    2300002: _treeTroncoA_02
+    3300000: _treeCopaA_02
+    3300002: _treeTroncoA_02
+    4300000: _treeTroncoA_02
+    4300002: _treeCopaA_02
     9500000: //RootNode
   materials:
     importMaterials: 1

@@ -1,31 +1,24 @@
 fileFormatVersion: 2
-guid: 0ef0d28f528f2744a9ce5f4c8d5da632
-timeCreated: 1451169605
+guid: 1b6e58837f8790c4e96a896f5ed5a6a7
+timeCreated: 1451785393
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: _treeCopaA_02
-    100004: _treeTroncoB_06
-    100006: pCylinder3
-    100008: polySurface12
-    100010: sunDirection1
+    100002: _treeCopaC_01
+    100004: _treeTroncoC_01
+    100006: sunDirection1
     400000: //RootNode
-    400002: _treeCopaA_02
-    400004: _treeTroncoB_06
-    400006: pCylinder3
-    400008: polySurface12
-    400010: sunDirection1
-    2300000: _treeCopaA_02
-    2300002: _treeTroncoB_06
-    2300004: polySurface12
-    3300000: _treeCopaA_02
-    3300002: _treeTroncoB_06
-    3300004: polySurface12
-    4300000: _treeTroncoB_06
-    4300002: _treeCopaA_02
-    4300004: polySurface12
+    400002: _treeCopaC_01
+    400004: _treeTroncoC_01
+    400006: sunDirection1
+    2300000: _treeCopaC_01
+    2300002: _treeTroncoC_01
+    3300000: _treeCopaC_01
+    3300002: _treeTroncoC_01
+    4300000: _treeTroncoC_01
+    4300002: _treeCopaC_01
     9500000: //RootNode
   materials:
     importMaterials: 1
