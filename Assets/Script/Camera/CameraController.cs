@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour {
 	public float CameraOffSetZ;
 	[Range(0, 10)]
 	public float CameraOffSetY;
+	public float CameraOffSetHeight = 4;
 	public float FixCameraRate;
 	public float FixBackCameraRate;
 
@@ -73,6 +74,9 @@ public class CameraController : MonoBehaviour {
 		// Rotaciona a camera para o personagem
 		_camera.transform.LookAt(ApplicationModel.Instance.CurrentPlayer.transform.position);
 		// Aplica o Offset da Camera
+
+		//Aplica o Offset da Camera na altura, para o personagem ficar abaixo do centro da câmera
+		_camera.transform.position = new Vector3(_camera.transform.position.x, _camera.transform.position.y + CameraOffSetHeight, _camera.transform.position.z);
 	}
 
 	bool IsPlayerVisible()

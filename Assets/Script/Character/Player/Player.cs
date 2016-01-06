@@ -68,7 +68,16 @@ public class Player : Character {
 		}
 
 		_moveToPosition.Normalize();
-		_moveToPosition *= Speed;
+		//_moveToPosition *= Speed;
+
+		//Altera a velocidade de movimentação de acordo com a direção do personagem
+		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+			_moveToPosition *= Speed;
+		else if (Input.GetAxisRaw("Horizontal") != 0)
+			_moveToPosition *= Speed/1.7f;
+		else
+			_moveToPosition *= Speed/2f;
+
 		base.CurrentSpeed = _moveToPosition.magnitude;
 
 		_moveToPosition *= Time.fixedDeltaTime;
