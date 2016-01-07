@@ -13,19 +13,20 @@ public class CONSTANTS
 	/// </summary>
 	public class ATTRIBUTES
 	{
-		public const int ATTRIBUTE_COUNT = 9;
+		public const int ATTRIBUTE_COUNT = 10;
 		public const int ATTRIBUTE_MODIFIERS_COUNT = 100;
 
 		public static string[] TYPE_NAMES = new string[]{
-			"Vigor",
-			"Resistencia",
-			"Inteligencia",
-			"**Defesa Magica**",
 			"Vitalidade",
 			"Sabedoria",
+			"Vigor",
+			"Inteligencia",
+			"Resistencia",
+			"**Defesa Magica**",
 			"Agilidade",
 			"Conhecimento",
-			"Ira"
+			"Ira",
+			"Velocidade"
 		};
 	}
 

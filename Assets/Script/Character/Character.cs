@@ -13,11 +13,9 @@ public class Character : MonoBehaviour {
 
 	// Atributos de GameDesign
 	public CharacterAttribute[] Attributes = InitializeAttributes();
-	public AttributeModifier[] AttributeModifiers = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
-	public float Speed;
-	[HideInInspector] public float CurrentSpeed;
-	[HideInInspector] public float[] SpellCoolDownTable;
-	[HideInInspector] public int DoSpellID; // ID da Spell que deve ser utilizada
+	public AttributeModifier[] AttributeModifiers = InitializeAttributesModifiers();
+	[HideInInspector] public CharacterSpell[] CharacterSpellTable;
+	[HideInInspector] public CharacterSpell DoCharacterSpell; // ID da Spell que deve ser utilizada
 	System.Random _pseudoRandom;
 
 	#region Componentes da Unity
@@ -38,15 +36,15 @@ public class Character : MonoBehaviour {
 		_animator = GetComponent<Animator>();
 
 		//InitializeAttributes(); // TODO: Carregar os atributos do jogador Salvo ou nao. Se inimigo carregar os atributos baseado na tabela de atributos
-		AttributeModifiers = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
+		//AttributeModifiers = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
 
-		DoSpellID = -1; // Inicializa a variavel de controle de habilidades
-		SpellCoolDownTable = new float[CONSTANTS.SPELL.COUNT];
+		CharacterSpellTable = new CharacterSpell[CONSTANTS.SPELL.COUNT];
 	}
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-		
+
+		CleanAttributesModifiers();
 		CheckAttributeModifiers(); // Verifica os atributos
 		ApplyAttributesModifiers(); // Aplica os modificadores	
 	}
@@ -66,77 +64,116 @@ public class Character : MonoBehaviour {
 
 	#region Private Methods
 
+	private static AttributeModifier[] InitializeAttributesModifiers()
+	{
+		AttributeModifier[] _tempModifier = new AttributeModifier[CONSTANTS.ATTRIBUTES.ATTRIBUTE_MODIFIERS_COUNT];
+		for(int i = 0 ; i < _tempModifier.Length; i++)
+		{
+			_tempModifier[i] = null;
+		}
+
+		return _tempModifier;
+	}
+
 	/// <summary>
 	/// Metodo responsavel por inicializar a arvore de atributos
 	/// </summary>
 	private static CharacterAttribute[] InitializeAttributes()
 	{
-		return
-			new CharacterAttribute[CONSTANTS.ATTRIBUTES.ATTRIBUTE_COUNT]{
+		CharacterAttribute[] _tempCharAttribute = new CharacterAttribute[CONSTANTS.ATTRIBUTES.ATTRIBUTE_COUNT];
+
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed] = 
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint] = 
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 1},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint] = 		
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 2},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 1};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack] = 		
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 2};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack] = 		
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense] = 		
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense] = 
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance] = 
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0},
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier] = 
 			new CharacterAttribute(){ 			
-				Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier], 
-				AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier,
-				Max = 0,
-				Current = 0,
-				Modifiers = 0,
-				DisplayOrder = 0}
-		};		
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};
+		_tempCharAttribute[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed] = 
+			new CharacterAttribute(){ 			
+			Name = CONSTANTS.ATTRIBUTES.TYPE_NAMES[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed], 
+			AttributeType = ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed,
+			Max = 0,
+			MaxModifiers = 0,
+			Current = 0,
+			CurrentModifiers = 0,
+			DisplayOrder = 0};		
+
+		return _tempCharAttribute;
 	}
 
 	#endregion
@@ -205,6 +242,9 @@ public class Character : MonoBehaviour {
 			// Se o espaco estiver vazio e pode ser adicionado inclui. Para a execucao do for
 			if (AttributeModifiers[i] == null && _canBeAdded){
 				AttributeModifiers[i] = attributeModifier_;
+				AttributeModifiers[i].InitialTime = Time.time;
+				AttributeModifiers[i].ExpireTime = Time.time + attributeModifier_.TimeInSeconds;
+				AttributeModifiers[i].Consumed = false;
 				break;
 			}
 
@@ -217,6 +257,9 @@ public class Character : MonoBehaviour {
 					AttributeModifiers[i].ModifierType == attributeModifier_.ModifierType)
 				{
 					AttributeModifiers[i] = attributeModifier_;
+					AttributeModifiers[i].InitialTime = Time.time;
+					AttributeModifiers[i].ExpireTime = Time.time + attributeModifier_.TimeInSeconds;
+					AttributeModifiers[i].Consumed = false;
 					break;					
 				}
 			}
@@ -229,11 +272,19 @@ public class Character : MonoBehaviour {
 	/// <param name="spellID_">ID da Habilidade que sera executada</param>
 	public bool StartSpellCast(int spellID_)
 	{
+		// Busca a Habilidade na Tabela pelo ID e Seta para ser utilizada
+		for(int i = 0; i < CharacterSpellTable.Length; i++)
+		{
+			if (CharacterSpellTable[i] != null)
+			{
+				if (CharacterSpellTable[i].Spell.ID == spellID_) DoCharacterSpell = CharacterSpellTable[i];
+			}
+		}
+
 		// Verifica se a habilidade esta em Cooldown
 		// TODO: Verifica se tem mana suficienta para utilizar a habilidade
-		if (Time.time > SpellCoolDownTable[spellID_])
+		if (Time.time > DoCharacterSpell.CoolDownTime)
 		{
-			DoSpellID = spellID_;
 			return true;
 		}
 		else
@@ -248,9 +299,9 @@ public class Character : MonoBehaviour {
 	/// </summary>
 	public void DoSpellCast()
 	{
-		if (DoSpellID > -1){
+		if (DoCharacterSpell != null){
 
-			SpellBase _spell = ApplicationModel.Instance.SpellTable[DoSpellID].Pool.GetFromPool() as SpellBase;
+			SpellBase _spell = DoCharacterSpell.Spell.Pool.GetFromPool() as SpellBase;
 
 			if (_spell != null){
 				
@@ -258,12 +309,12 @@ public class Character : MonoBehaviour {
 				_spell.transform.position = GetForwardPosition + Vector3.up;
 				_spell.transform.rotation = transform.rotation;
 
-				SpellCoolDownTable[DoSpellID] = Time.time + _spell.CoolDown;
+				DoCharacterSpell.CoolDownTime = Time.time + DoCharacterSpell.Spell.CoolDown;
 			}
 
 		}
 
-		DoSpellID = -1;
+		DoCharacterSpell = null;
 	}
 
 	#endregion
@@ -330,6 +381,19 @@ public class Character : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// Metodo responsavel por limpar os Modificadores
+	/// </summary>
+	void CleanAttributesModifiers()
+	{
+		for(int i = 0; i < Attributes.Length; i++)
+		{
+			Attributes[i].CurrentModifiers = 0;
+			Attributes[i].MaxModifiers = 0;
+
+		}
+	}
+
+	/// <summary>
 	/// Metodo responsavel por aplicar os modificadores de atributos
 	/// </summary>
 	void ApplyAttributesModifiers()
@@ -350,18 +414,18 @@ public class Character : MonoBehaviour {
 					{
 					case ENUMERATORS.Attribute.AttributeModifierApplyToEnum.Max:
 						
-						Attributes[_attributeTypeIndex].Modifiers += (Attributes[_attributeTypeIndex].Max * AttributeModifiers[i].Value);
+						Attributes[_attributeTypeIndex].MaxModifiers += (Attributes[_attributeTypeIndex].Max * AttributeModifiers[i].Value / 100);
 
 						break;
 					case ENUMERATORS.Attribute.AttributeModifierApplyToEnum.Current:
 
-						Attributes[_attributeTypeIndex].Current += (Attributes[_attributeTypeIndex].Current * AttributeModifiers[i].Value);
+						Attributes[_attributeTypeIndex].CurrentModifiers += (Attributes[_attributeTypeIndex].Current * AttributeModifiers[i].Value / 100);
 
 						break;
 					case ENUMERATORS.Attribute.AttributeModifierApplyToEnum.Both:
 
-						Attributes[_attributeTypeIndex].Modifiers += (Attributes[_attributeTypeIndex].Max * AttributeModifiers[i].Value);
-						Attributes[_attributeTypeIndex].Current += (Attributes[_attributeTypeIndex].Current * AttributeModifiers[i].Value);
+						Attributes[_attributeTypeIndex].MaxModifiers += (Attributes[_attributeTypeIndex].Max * AttributeModifiers[i].Value / 100);
+						Attributes[_attributeTypeIndex].CurrentModifiers += (Attributes[_attributeTypeIndex].Current * AttributeModifiers[i].Value / 100);
 
 						break;
 					}
@@ -373,18 +437,18 @@ public class Character : MonoBehaviour {
 					{
 					case ENUMERATORS.Attribute.AttributeModifierApplyToEnum.Max:
 
-						Attributes[_attributeTypeIndex].Modifiers += (Attributes[_attributeTypeIndex].Max + AttributeModifiers[i].Value);
+						Attributes[_attributeTypeIndex].MaxModifiers += AttributeModifiers[i].Value;
 
 						break;
 					case ENUMERATORS.Attribute.AttributeModifierApplyToEnum.Current:
 
-						Attributes[_attributeTypeIndex].Current += (Attributes[_attributeTypeIndex].Current + AttributeModifiers[i].Value);
+						Attributes[_attributeTypeIndex].CurrentModifiers += AttributeModifiers[i].Value;
 
 						break;
 					case ENUMERATORS.Attribute.AttributeModifierApplyToEnum.Both:
 
-						Attributes[_attributeTypeIndex].Modifiers += (Attributes[_attributeTypeIndex].Max + AttributeModifiers[i].Value);
-						Attributes[_attributeTypeIndex].Current += (Attributes[_attributeTypeIndex].Current + AttributeModifiers[i].Value);
+						Attributes[_attributeTypeIndex].MaxModifiers += AttributeModifiers[i].Value;
+						Attributes[_attributeTypeIndex].CurrentModifiers += AttributeModifiers[i].Value;
 
 						break;
 					}

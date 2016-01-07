@@ -44,7 +44,7 @@ public class Enemy : Character {
 
 		// Ajusta o agente de navegacao
 		_navMeshAgent = GetComponent<NavMeshAgent>();
-		_navMeshAgent.speed = Speed;
+		_navMeshAgent.speed = Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].Max;
 
 		// Cria o array de colliders para a pesquisa do jogador
 		_testSphereColliderResult = new Collider[1];
@@ -167,7 +167,7 @@ public class Enemy : Character {
 		// Verifica se o jogador esta no range do attack a distancia
 		if (!IsPlayerOnAttackDistance(attackDistanceRadius_))
 		{
-			transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+			transform.Translate(Vector3.forward * Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].MaxWithModifiers * Time.deltaTime);
 			//_navMeshAgent.SetDestination(_playerQuery[0].transform.position);
 			return false;
 		}

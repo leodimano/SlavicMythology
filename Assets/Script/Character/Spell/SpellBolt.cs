@@ -6,8 +6,6 @@ using System;
 /// </summary>
 public class SpellBolt : SpellBase
 {
-	public float Speed;
-
 	/// <summary>
 	/// Implementa o comportamento de bolt na spell
 	/// </summary>

@@ -6,6 +6,9 @@ public class Player : Character {
 
 	PlayerInput _playerInput;
 
+
+	GodShrine _godShrineOnRange;
+
 	bool DebugEnabled;
 
 	// Use this for initialization
@@ -16,6 +19,9 @@ public class Player : Character {
 
 		_playerInput = GetComponent<PlayerInput>();
 		base.CharacterType = ENUMERATORS.Character.CharacterTypeEnum.Player;
+
+		SetInitialSpell();
+		SetInitialAttributes();
 	}
 	
 	// Update is called once per frame
@@ -52,6 +58,55 @@ public class Player : Character {
 		// NAO CODIFICAR NESSA AREA. SOMENTE SE NECESSARIO
 	}
 
+	void OnTriggerEnter(Collider collider_)
+	{
+		GodShrine _godShrine = collider_.gameObject.GetComponent<GodShrine>();
+
+		if (_godShrine != null)
+		{
+			_godShrineOnRange = _godShrine;
+		}
+	}
+
+	void OnTriggerExit(Collider collider_)
+	{
+		GodShrine _godShrine = collider_.gameObject.GetComponent<GodShrine>();
+
+		if (_godShrine != null)
+		{
+			_godShrineOnRange = null;
+		}		
+	}
+
+	/// <summary>
+	/// Metodo responsavel por disponibilizar as habilidades para o Jogador
+	/// </summary>
+	void SetInitialSpell()
+	{
+		// Seta o FireBall para ser utilizado
+		CharacterSpellTable[0] = new CharacterSpell();
+		CharacterSpellTable[0].CoolDownTime = 0;
+		CharacterSpellTable[0].Spell = ApplicationModel.Instance.SpellTable[0];
+	}
+
+	/// <summary>
+	/// Metodo responsavel por atribuir os atributos iniciais
+	/// </summary>
+	void SetInitialAttributes()
+	{
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint].Max = 1000f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.HitPoint].Current = 1000f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint].Max = 800f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.ManaPoint].Current = 800f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.AttackSpeed].Max = 50f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeAttack].Max = 100f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MeleeDefense].Max = 50f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicAttack].Max = 150f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.MagicDefense].Max = 40f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticChance].Max = 0.15f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.CriticMultiplier].Max = 2f;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].Max = 10f;
+	}
 
 	#region Private Methods
 
@@ -78,13 +133,13 @@ public class Player : Character {
 
 		//Altera a velocidade de movimentação de acordo com a direção do personagem
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-			_moveToPosition *= Speed;
+			_moveToPosition *= Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].MaxWithModifiers;
 		else if (Input.GetAxisRaw("Horizontal") != 0)
-			_moveToPosition *= Speed/1.7f;
+			_moveToPosition *= Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].MaxWithModifiers / 1.7f;
 		else
-			_moveToPosition *= Speed/2f;
+			_moveToPosition *= Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].MaxWithModifiers /2f;
 
-		base.CurrentSpeed = _moveToPosition.magnitude;
+		Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].Current = _moveToPosition.magnitude;
 
 		_moveToPosition *= Time.fixedDeltaTime;
 		_moveToPosition += transform.position;
@@ -109,8 +164,17 @@ public class Player : Character {
 	{
 		if (_playerInput.Action2IsPressed)
 		{
-			if (StartSpellCast(0)) // TODO: Associar a spell ao botao
+			if (StartSpellCast(CharacterSpellTable[0].Spell.ID)) // TODO: Associar a spell ao botao
 				DoSpellCast(); // TODO: METODO DEVE SER CHAMADO NO RETORNO DA ANIMACAO
+		}
+
+		if (_playerInput.ActionPressed)
+		{
+			if (_godShrineOnRange != null)
+			{
+				AddAttributeModifier(_godShrineOnRange.Activate());
+				_godShrineOnRange = null;
+			}
 		}
 	}
 
@@ -121,7 +185,7 @@ public class Player : Character {
 	{
 		if (_animator != null)
 		{
-			_animator.SetFloat(CONSTANTS.ANIMATION.SPEED, base.CurrentSpeed);
+			_animator.SetFloat(CONSTANTS.ANIMATION.SPEED, Attributes[(int)ENUMERATORS.Attribute.CharacterAttributeTypeEnum.Speed].Current);
 		}
 	}
 
@@ -149,10 +213,6 @@ public class Player : Character {
 
 		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), "Player DEBUG MODE", _guiStyle);
 		CurrentPosition.y += newLineSize * 2;
-		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), string.Format("Speed: {0}", Speed), _guiStyle);
-		CurrentPosition.y += newLineSize;
-		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), string.Format("CurrentSpeed: {0}", CurrentSpeed), _guiStyle);
-		CurrentPosition.y += newLineSize;
 
 		// Atualiza a posicao inicial para criar a tabela
 		StarPosition = CurrentPosition;
@@ -168,13 +228,15 @@ public class Player : Character {
 			CurrentPosition.y += newLineSize * attributeLineSize;			
 			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Name: {0}", _charAttribute.Name), _guiStyle);
 			CurrentPosition.y += newLineSize * attributeLineSize;	
-			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Display Order: {0}", _charAttribute.DisplayOrder), _guiStyle);
-			CurrentPosition.y += newLineSize * attributeLineSize;	
 			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Current: {0}", _charAttribute.Current), _guiStyle);
+			CurrentPosition.y += newLineSize * attributeLineSize;	
+			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Current Modifier: {0}", _charAttribute.CurrentModifiers), _guiStyle);
+			CurrentPosition.y += newLineSize * attributeLineSize;	
+			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Current W Modifier: {0}", _charAttribute.CurrentWithModifiers), _guiStyle);
 			CurrentPosition.y += newLineSize * attributeLineSize;	
 			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Max: {0}", _charAttribute.Max), _guiStyle);
 			CurrentPosition.y += newLineSize * attributeLineSize;	
-			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Modifiers: {0}", _charAttribute.Modifiers), _guiStyle);
+			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Max Modifiers: {0}", _charAttribute.MaxModifiers), _guiStyle);
 			CurrentPosition.y += newLineSize * attributeLineSize;	
 			GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Max W Modifiers: {0}", _charAttribute.MaxWithModifiers), _guiStyle);
 			CurrentPosition.y += newLineSize;	
@@ -190,25 +252,25 @@ public class Player : Character {
 		{
 			if (_attrModifier != null){
 				_guiStyle.fontSize = 12;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("OriginID: ", _attrModifier.OriginID), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("OriginID: {0}", _attrModifier.OriginID), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ModifierType: ", _attrModifier.ModifierType), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ModifierType: {0}", _attrModifier.ModifierType), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("AttributeType: ", _attrModifier.AttributeType), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("AttributeType: {0}", _attrModifier.AttributeType), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("CalcType: ", _attrModifier.CalcType), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("CalcType: {0}", _attrModifier.CalcType), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ApplyTo: ", _attrModifier.ApplyTo), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ApplyTo: {0}", _attrModifier.ApplyTo), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Value: ", _attrModifier.Value), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Value: {0}", _attrModifier.Value), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("TimeInSeconds: ", _attrModifier.TimeInSeconds), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("TimeInSeconds: {0}", _attrModifier.TimeInSeconds), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("InitialTime: ", _attrModifier.InitialTime), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("InitialTime: {0}", _attrModifier.InitialTime), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ExpireTime: ", _attrModifier.ExpireTime), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ExpireTime: {0}", _attrModifier.ExpireTime), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Consumed: ", _attrModifier.Consumed), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Consumed: {0}", _attrModifier.Consumed), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
 			}
 		}
@@ -216,30 +278,32 @@ public class Player : Character {
 		StarPosition.x += newColumnSize;
 		CurrentPosition = StarPosition;
 
-		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), "Spells", _guiStyle);
+		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), "Character Spell", _guiStyle);
 		CurrentPosition.y += newLineSize;
 		attributeLineSize = 0.65f;
-		SpellBase _spellBase = null;
-		for(int i = 0; i < SpellCoolDownTable.Length; i++)			
+		for(int i = 0; i < CharacterSpellTable.Length; i++)			
 		{
-			_spellBase = ApplicationModel.Instance.SpellTable[i];
-			if (_spellBase != null)
+			CharacterSpell _charSpell = CharacterSpellTable[i];
+
+			if(_charSpell != null)
 			{
 				_guiStyle.fontSize = 12;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Spell ID: {0}", _spellBase.ID), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Spell Next Cast: {0}", _charSpell.CoolDownTime), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("NeedTarget: {0}", _spellBase.NeedTarget), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Spell ID: {0}", _charSpell.Spell.ID), _guiStyle);
+				CurrentPosition.y += newLineSize * attributeLineSize;
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("NeedTarget: {0}", _charSpell.Spell.NeedTarget), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
 				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("AttributeModifiers: NOT IMPLEMENTED"), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Damage: {0}", _spellBase.Damage), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("Damage: {0}", _charSpell.Spell.Damage), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("CoolDown: {0}", _spellBase.CoolDown), _guiStyle);
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("CoolDown: {0}", _charSpell.Spell.CoolDown), _guiStyle);
 				CurrentPosition.y += newLineSize * attributeLineSize;
-				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ManaCost: {0}", _spellBase.ManaCost), _guiStyle);
-				CurrentPosition.y += newLineSize * attributeLineSize;				
-				
+				GUI.Label(new Rect(CurrentPosition.x + TabSize, CurrentPosition.y, LabelSize, LabelSize), string.Format("ManaCost: {0}", _charSpell.Spell.ManaCost), _guiStyle);
+				CurrentPosition.y += newLineSize * attributeLineSize;		
 			}
+
 		}
 	}
 }

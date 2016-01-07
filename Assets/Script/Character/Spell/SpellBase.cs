@@ -14,11 +14,14 @@ using System.Collections;
 public class SpellBase : PoolObject {
 
 	public int ID; // ID da Spell para carregar da Tabela de Habilidaes
+	public string SpellName;
 	public Character Caster; /// Personagem que gerou a habilidade
 	public Character Target; // Alvo da Habilidade se houver;
 	public bool NeedTarget; /// Magia precisa de um alvo?
 
 	public AttributeModifier[] AttributeModifiers; /// Modificadores que serao aplicados ao personagem, se houverem;
+
+	public float Speed; /// Velocidade da Magia, se necessario
 
 	public float Damage; /// Dano base da habilidade se houver
 	public float CoolDown; /// CoolDown da habilidade em segundos

@@ -25,6 +25,11 @@ public class CharacterAttribute
 	public float Max;
 
 	/// <summary>
+	/// Valor dos modificadores
+	/// </summary>
+	public float MaxModifiers;
+
+	/// <summary>
 	/// Valor do atributo atual
 	/// </summary>
 	public float Current;
@@ -32,7 +37,7 @@ public class CharacterAttribute
 	/// <summary>
 	/// Valor dos modificadores
 	/// </summary>
-	public float Modifiers;
+	public float CurrentModifiers;
 
 	/// <summary>
 	/// Valor dos Bufs (Modificadores) aplicados + o valor maximo
@@ -40,7 +45,18 @@ public class CharacterAttribute
 	/// <value>The max buffed.</value>
 	public float MaxWithModifiers
 	{
-		get { return Max + Modifiers; }
+		get { return Max + MaxModifiers; }
+	}
+
+	public float CurrentWithModifiers
+	{
+		get {
+
+			if (Current + CurrentModifiers >  MaxWithModifiers)
+				return MaxWithModifiers;
+			else
+				return Current + CurrentModifiers;
+		}
 	}
 
 	/// <summary>

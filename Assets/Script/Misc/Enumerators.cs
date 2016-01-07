@@ -67,15 +67,16 @@ public class ENUMERATORS{
 		/// </summary>
 		public enum CharacterAttributeTypeEnum
 		{
-			MeleeAttack = 0,
-			MeleeDefense = 1,
-			MagicAttack = 2,
-			MagicDefense = 3,
-			HitPoint = 4,
-			ManaPoint = 5,
+			HitPoint = 0,
+			ManaPoint = 1,			
+			MeleeAttack = 2,
+			MagicAttack = 3,
+			MeleeDefense = 4,
+			MagicDefense = 5,
 			AttackSpeed = 6,
-			CriticMultiplier = 7,
-			CriticChance = 8
+			CriticChance = 7,
+			CriticMultiplier = 8,
+			Speed = 9				
 		}
 
 		/// <summary>

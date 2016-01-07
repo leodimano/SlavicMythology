@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour {
 	public bool Action1WasPressed;
 	public bool Action2IsPressed;
 	public bool Action2WasPressed;
+	public bool ActionPressed;
 
 	private bool DebugEnabled;
 
@@ -30,6 +31,8 @@ public class PlayerInput : MonoBehaviour {
 
 		Action2IsPressed = Input.GetMouseButton(CONSTANTS.INPUT.MOUSE_RIGHT_BUTTON);
 		Action2WasPressed = Input.GetMouseButton(CONSTANTS.INPUT.MOUSE_RIGHT_BUTTON);
+
+		ActionPressed = Input.GetAxisRaw("Action_KeyBoard") == 1;
 
 		// Habilitar o Debug das Variaveis de Controle
 		if (Input.GetKeyDown(KeyCode.F1))
@@ -74,6 +77,8 @@ public class PlayerInput : MonoBehaviour {
 		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), string.Format("Action2IsPressed: {0}", Action2IsPressed.ToString()), _guiStyle);
 		CurrentPosition.y += newLineSize;
 		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), string.Format("Action2WasPressed: {0}", Action2WasPressed.ToString()), _guiStyle);
+		CurrentPosition.y += newLineSize;
+		GUI.Label(new Rect(CurrentPosition.x, CurrentPosition.y, LabelSize, LabelSize), string.Format("ActionPressed: {0}", ActionPressed.ToString()), _guiStyle);
 		CurrentPosition.y += newLineSize;
 	}
 }
