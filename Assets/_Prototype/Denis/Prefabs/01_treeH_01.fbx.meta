@@ -1,15 +1,29 @@
 fileFormatVersion: 2
-guid: 086d725ee6f37624d8289c1083f409ef
-timeCreated: 1451850409
+guid: 090e3540c88857d478f127b982ead52e
+timeCreated: 1452141895
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: _treeCopaH_01
+    100004: _treeTroncoH_01
+    100006: _treeTroncoH_01_MeshPart0
+    100008: _treeTroncoH_01_MeshPart1
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: _treeTroncoE_02
+    400002: _treeCopaH_01
+    400004: _treeTroncoH_01
+    400006: _treeTroncoH_01_MeshPart0
+    400008: _treeTroncoH_01_MeshPart1
+    2300000: _treeCopaH_01
+    2300002: _treeTroncoH_01_MeshPart0
+    2300004: _treeTroncoH_01_MeshPart1
+    3300000: _treeCopaH_01
+    3300002: _treeTroncoH_01_MeshPart0
+    3300004: _treeTroncoH_01_MeshPart1
+    4300000: _treeTroncoH_01_MeshPart0
+    4300002: _treeTroncoH_01_MeshPart1
+    4300004: _treeCopaH_01
     9500000: //RootNode
   materials:
     importMaterials: 1

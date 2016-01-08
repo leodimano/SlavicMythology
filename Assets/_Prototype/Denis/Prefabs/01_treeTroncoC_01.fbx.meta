@@ -1,22 +1,15 @@
 fileFormatVersion: 2
-guid: 301366db0b930ef47b6cf220da9fd8f2
-timeCreated: 1452141895
+guid: 69375b3a2ff43e0438bad5b017a4b0a4
+timeCreated: 1452141896
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: _treeCopaB_01 1
-    100004: _treeTroncoB_01
     400000: //RootNode
-    400002: _treeCopaB_01 1
-    400004: _treeTroncoB_01
-    2300000: _treeCopaB_01 1
-    2300002: _treeTroncoB_01
-    3300000: _treeCopaB_01 1
-    3300002: _treeTroncoB_01
-    4300000: _treeCopaB_01
-    4300002: _treeTroncoB_01
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: _treeTroncoC_01
     9500000: //RootNode
   materials:
     importMaterials: 1
